@@ -17,27 +17,48 @@
 # 
 # python的教程很多很多, 有些非常好, 有些非常坑, 我会按照自己的经历参考和重新编排这些教程, 产生这个新的面向眼科医生的python教程. 
 # 
-# 本教程中, 会尽量贴近眼科中常见的场景, 编写一些能够在日常工作中可用的代码. 
+# 我启动学习python已经很多次, 只有最后这一次坚持下来了. 我深知学习过程中容易放弃的原因, 因此我会在本教程中尽量使眼科医生能够快速上手, 迅速产生实用的效果, 躲开一些python程序员引以为傲的奇技淫巧与晦涩难懂的区域.  
+# 
+# 本教程中, 会尽量贴近眼科中常见的场景, 编写一些能够在日常工作中可用的代码. 本教程中会尽快进入科学计算部分, 具体的内容参考后面课程大纲. 
+# 
+# 此处面向专业程序员解释, 未学编程的眼科医生不必费心理解: 
+# 
+# * 我会优先讲解numpy array, 跳过List, set, dict等数据结构, 在迫不得已时才引入;  
+# * 我会优先使用向量化, 在迫不得已时才引入循环; 
+# * 我会优先讲解基于Google/ Stack overflow和各种现成工具包的编程, 而不是自己从零开始写代码; 
 # 
 
 # # 为什么要学编程
 # 
 # 点击下面这个视频, 先看一段非眼科"成功人士"对为什么要学编程的理解: 
-# [Why Programming Is Important?](https://www.youtube.com/watch?v=Dv7gLpW91DM)
+# * [Why Programming Is Important? Youtube视频](https://www.youtube.com/watch?v=Dv7gLpW91DM)
+# * [Why Programming Is Important? BiliBili视频](https://www.bilibili.com/video/av3309976/?from=search&seid=5681543930122161574)
 # 
-
-# In[2]:
-
-from IPython.display import HTML
-
-# Youtube
-HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/Dv7gLpW91DM" frameborder="0" allowfullscreen></iframe>')
-
-
+# 每个人的动机可能会有不同. 我不知道你第一次拿起手术刀, 第一次坐在显微镜之前, 第一次听见Phaco机的鸣唱, 第一次独立完成一个手术是什么感觉. 我第一次学习编程的时候, 会有类似的感觉. 
+# 
+# 我记得我是初一才开始学习编程, 写的第一个程序是计算从1+2+3... 99+100, 常年参加数学竞赛的我当然知道$\frac{(1+100)\times 100 }{2}=5050 $, 但是看到计算机若无其事地从1加到了100, 并且返回了5050的结果以后. 我意识到我所能达到的边界被极大扩展了, 原本必须使用复杂技巧绕过的障碍, 突然之间不复存在. 
+# 
+# 这种震撼的感觉在我少年时期出现过三次: 第一次接触到解方程, 第一次编写程序和第一次理解进化论是一种算法. 
+# 
 
 # ## 为什么眼科医生要学习编程
 # 
-# ### 人工智能时代与眼科
+# 就像我在其他很多文章中所写的. 如果你想在眼科作出什么成就, 你会发现所需要的知识一定不在眼科书上. 
+# . . . 
+# 
+# ### 轮子为什么没有在轮子被发明之前被发明
+# 
+# ### 眼科需要处理的数据更复杂
+# 
+# 
+# ### 深度学习与眼科
+
+# ## 我已经不是学生了还学啥 
+# 
+# 也许你已经是主治/副主任/主任医师了. 
+# 
+# 眼科医生一直是多才多艺的. 我记得我刚进眼科的时候, 发现老教授用五笔字型打字比我输入快得多, 我刚开始在网上学公开课的时候, 老教授已经在研究Coursera并且推动眼科MOOC了. 
+# 
 
 # ## 女医生也可以学编程么? 
 # 
@@ -48,18 +69,47 @@ HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/Dv7gLp
 # ![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/334px-Ada_Lovelace_portrait.jpg)
 # 
 # 同理, 最伟大的眼科医生是[赫尔曼·冯·亥姆霍兹](https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%B0%94%E6%9B%BC%C2%B7%E5%86%AF%C2%B7%E4%BA%A5%E5%A7%86%E9%9C%8D%E5%85%B9) 他发明了眼底镜, 此后眼科才独立成为一个学科. 虽然[Allvar Gullstrand](https://zh.wikipedia.org/wiki/%E9%98%BF%E7%88%BE%E7%93%A6%C2%B7%E5%8F%A4%E7%88%BE%E6%96%AF%E7%89%B9%E8%98%AD%E5%BE%B7) 发明了裂隙灯而且霸气地干掉了相对论的诺贝尔奖, 但那时候眼科已经独立存在了. 
+# 
+# 在"电子计算机"出现之前, computer是指计算员, 这是人类的一种工作, 而且, 大部分computer是女性. ![human computer](https://upload.wikimedia.org/wikipedia/commons/0/06/Human_computers_-_Dryden.jpg)
+# 
+# __一个人是不应该[被简单的词汇所限定住](http://www.guokr.com/blog/310237/), 你做什么或者不做什么, 只有自己才能决定. __ 
+# 
+# 何况学习编程只需要一台电脑甚至手机就可以了. 不试试么? 
 
 # ## 我应该如何学习编程
 # 
 # 如何学好和如何学坏是一样的: 
 # 
 # * 被一些快感所诱惑
-# * 逐步深入, 获得正反馈
-# * 传播
+# * 快速上手, 逐步深入, 获得快感的正反馈
+# * 传播, 让周围的人一起
 
 # # 为什么要学Python
 
 # # 如何开始
+# 
+# 
+
+# # 课程大纲
+# 
+# ## 计算IOL度数的SRK公式计算器
+# * 熟悉Jupyter环境
+# * 熟悉交互式编程
+# * 理解变量赋值
+# * 函数定义
+# 
+# ## 计算IOL度数的SRK II公式计算器
+# * 分支结构
+# 
+# ## 拟合自己的IOL公式
+# * 导入numpy
+# * numpy array
+# * 读写excel数据
+# * 循环与List
+# * tensorflow初步
+# 
+# ## EDTRs视力表
+# * 图像处理与OpenCV初步
 # 
 # 
 
