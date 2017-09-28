@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>lesson_0_of_python_tutorial_for_ophthalmologist</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>SRK</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11726,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11749,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11773,195 +11771,370 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>面向眼科医生的Python教程(0)</p>
+<h1 id="&#21464;&#37327;">&#21464;&#37327;<a class="anchor-link" href="#&#21464;&#37327;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>python最简单的功能相当于一个计算器.</p>
+<p>比如, 眼科最简单的公式SRK公式:</p>
+<p>P = A - 0.9<em>K - 2.5</em>AL</p>
+<p>直接输入数就可以了, 要进行运算时使用shift+return运行.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#20026;&#20160;&#20040;&#25105;&#35201;&#20889;&#36825;&#20010;&#25945;&#31243;">&#20026;&#20160;&#20040;&#25105;&#35201;&#20889;&#36825;&#20010;&#25945;&#31243;<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#25105;&#35201;&#20889;&#36825;&#20010;&#25945;&#31243;">&#182;</a></h1><p>因为写教程, 教会其他人, 是学习的一部分, 也是学习过程中最为重要的一部分.</p>
-<p>不论是学习编程还是学习看病还是学习做手术都是这样. 作为眼科医生, 回忆一下你在住院医阶段记得最清楚的几个疾病, 是不是你被要求在查房时讲解的哪些, 印象最深的病人, 是不是你刚开始管病人时被问住的哪些.</p>
-<p>只有教会了其他人, 学习的过程才算是完整的.</p>
-<p>我现在正在学习python, 进一步我还在深入学习"深度学习", 还打算使用python和深度学习技术做很多有意思的东西. 为了自己的学习, 也为了让大家也能体会到这些乐趣, 我开始写这个教程.</p>
-<h2 id="&#26412;&#25945;&#31243;&#29305;&#28857;">&#26412;&#25945;&#31243;&#29305;&#28857;<a class="anchor-link" href="#&#26412;&#25945;&#31243;&#29305;&#28857;">&#182;</a></h2><p>python的教程很多很多, 有些非常好, 有些非常坑, 我会按照自己的经历参考和重新编排这些教程, 产生这个新的面向眼科医生的python教程.</p>
-<p>我启动学习python已经很多次, 只有最后这一次坚持下来了. 我深知学习过程中容易放弃的原因, 因此我会在本教程中尽量使眼科医生能够快速上手, 迅速产生实用的效果, 躲开一些python程序员引以为傲的奇技淫巧与晦涩难懂的区域.</p>
-<p>本教程中, 会尽量贴近眼科中常见的场景, 编写一些能够在日常工作中可用的代码. 本教程中会尽快进入科学计算部分, 具体的内容参考后面课程大纲.</p>
-<p>此处面向专业程序员解释, 未学编程的眼科医生不必费心理解:</p>
-<ul>
-<li>我会优先讲解numpy array, 跳过List, set, dict等数据结构, 在迫不得已时才引入;  </li>
-<li>我会优先使用向量化, 在迫不得已时才引入循环; </li>
-<li>我会优先讲解基于Google/ Stack overflow和各种现成工具包的编程, 而不是自己从零开始写代码; </li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#20026;&#20160;&#20040;&#35201;&#23398;&#32534;&#31243;">&#20026;&#20160;&#20040;&#35201;&#23398;&#32534;&#31243;<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#35201;&#23398;&#32534;&#31243;">&#182;</a></h1><p>点击下面这个视频, 先看一段非眼科"成功人士"对为什么要学编程的理解:</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=Dv7gLpW91DM">Why Programming Is Important? Youtube视频</a></li>
-<li><a href="https://www.bilibili.com/video/av3309976/?from=search&amp;seid=5681543930122161574">Why Programming Is Important? BiliBili视频</a></li>
-</ul>
-<p>每个人的动机可能会有不同. 我不知道你第一次拿起手术刀, 第一次坐在显微镜之前, 第一次听见Phaco机的鸣唱, 第一次独立完成一个手术是什么感觉. 我第一次学习编程的时候, 会有类似的感觉.</p>
-<p>我记得我是初一才开始学习编程, 写的第一个程序是计算从1+2+3... 99+100, 常年参加数学竞赛的我当然知道$\frac{(1+100)\times 100 }{2}=5050 $, 但是看到计算机若无其事地从1加到了100, 并且返回了5050的结果以后. 我意识到我所能达到的边界被极大扩展了, 原本必须使用复杂技巧绕过的障碍, 突然之间不复存在.</p>
-<p>这种震撼的感觉在我少年时期出现过三次: 第一次接触到解方程, 第一次编写程序和第一次理解进化论是一种算法.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#20026;&#20160;&#20040;&#30524;&#31185;&#21307;&#29983;&#35201;&#23398;&#20064;&#32534;&#31243;">&#20026;&#20160;&#20040;&#30524;&#31185;&#21307;&#29983;&#35201;&#23398;&#20064;&#32534;&#31243;<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#30524;&#31185;&#21307;&#29983;&#35201;&#23398;&#20064;&#32534;&#31243;">&#182;</a></h2><p>就像我在其他很多文章中所写的. 如果你想在眼科作出什么成就, 你会发现所需要的知识一定不在眼科书上. 当你想自己做点研究, 你会发现多数你想到的东西已经被人做过了, 如果你发现还有什么没人做过的, 通常是你查文献还不够深入. 全球有不止70亿人, 其中也有无数的眼科PhD, 相当多的题目都已经被做了, 很多还已经做得很完善.</p>
-<p>那么还剩下哪些能做的东西呢? 能够做的题目可以总结为: 天时地利人和</p>
-<ul>
-<li>人和, 中国大陆拥有最多的人口, 所以大量的流行病学调查是可以在国内做的, 如果联合几个大的眼科中心, 那么能够做出多中心大规模的临床实验. </li>
-<li>地利, 有些研究, 还是可以做个"国内领先", "省内领先", "市内领先", 但不知道这样的有啥意思. </li>
-<li>天时, 在我看来这个才是最有意义的问题: <strong> 轮子为什么没有在轮子被发明之前被发明?  </strong><ul>
-<li>很多时候一个技术或者一个科学, 之所以没有出现是因为技术水平不成熟. <ul>
-<li>光场的文献最早出现与1908年, 直到2006年才有Lytro推出光场相机, 结果还卖得不好, 差点没倒闭. </li>
-<li>人工神经网络的研究从196x到198x就有了, 即使是卷积神经网络也在199x年出现过, 2012年AlexNet才真正开始认识猫</li>
-<li>OCT的原理是干涉仪, 就是在高中学过证明以太不存在的<a href="https://zh.wikipedia.org/wiki/%E8%BF%88%E5%85%8B%E8%80%B3%E5%AD%99-%E8%8E%AB%E9%9B%B7%E5%AE%9E%E9%AA%8C">迈克耳孙-莫雷实验</a> 这个实验是1887年做的, OCT是哪年进入贵院? </li>
-</ul>
-</li>
-<li>以上这些研究虽然开始都很早, 但真正做出东西却很晚, 原因不外乎没有计算机, 计算机速度不够快, 缺少激光, 缺少CCD. . . 也就是缺少一些关键技术</li>
-<li>反过来看, 如果具有了某项关键技术, 那么以前不可能的事情就会变得可能起来, 以前做不了做不到的事情就能做了. </li>
-<li>那么要找到过去没有现在有了的关键技术, 显然还是计算机IT领域, 而当你想要利用上IT技术, 你得先学会操纵计算机, 也就是编写程序. </li>
-</ul>
-</li>
-</ul>
-<h3 id="&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;">&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;<a class="anchor-link" href="#&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;">&#182;</a></h3><p>眼科里能够采集到的数据是很多很复杂的, 这一点其他科比不了. 其他科室很少有能够采集到大量原始数据的, 比如内科靠听, 但他们很少能真正录下来一段心音肺音, 都是用各种名词来描述, 也就是用人力先处理了一遍; 普外靠摸, 但现代科技连触觉怎么采集怎么记录怎么重现都还没搞清楚; 而我们眼科靠看, 看的东西用相机照下来就是原始数据啊.</p>
-<p>但是原始数据的处理是很复杂的, 数理统计里面大多数情况下是在统计单一一个数字的变化, 不管你是用SPSS还是SAS, 做ANOVA还是Logistic回归, 通常能处理的变量个数也就是个位数的. 但对于图片, 能看清至少得100 x 100的像素吧, 一下就是10000个数, 很难交给常规的统计软件处理. 所以有些东西得自己写.</p>
-<h3 id="&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;">&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;<a class="anchor-link" href="#&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;">&#182;</a></h3><p>2012年发生了一件大事, 一个叫做AlexNet的程序可以比较准确地识别图片了,  用了一类叫做深度学习的技术. 从此以后深度学习一年比一年热, 人工智能的概念也重新回归, 接着围棋人类也输了.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;">&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;<a class="anchor-link" href="#&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;">&#182;</a></h2><p>也许你已经是主治/副主任/主任医师了.</p>
-<p>眼科医生一直是多才多艺的. 我记得我刚进眼科的时候, 发现老教授用五笔字型打字比我输入快得多, 我刚开始在网上学公开课的时候, 老教授已经在研究Coursera并且推动眼科MOOC了.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#22899;&#21307;&#29983;&#20063;&#21487;&#20197;&#23398;&#32534;&#31243;&#20040;?">&#22899;&#21307;&#29983;&#20063;&#21487;&#20197;&#23398;&#32534;&#31243;&#20040;?<a class="anchor-link" href="#&#22899;&#21307;&#29983;&#20063;&#21487;&#20197;&#23398;&#32534;&#31243;&#20040;?">&#182;</a></h2><p>最伟大的程序员是女性. 当我们说某个领域最伟大的人时, 唯一没有争议的提法, 就是开创这个领域的人.</p>
-<p>第一位程序员, 是<a href="https://zh.wikipedia.org/zh-cn/%E6%84%9B%E9%81%94%C2%B7%E5%8B%92%E8%8A%99%E8%95%BE%E7%B5%B2">埃达·洛夫莱斯</a></p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/334px-Ada_Lovelace_portrait.jpg" alt=""></p>
-<p>同理, 最伟大的眼科医生是<a href="https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%B0%94%E6%9B%BC%C2%B7%E5%86%AF%C2%B7%E4%BA%A5%E5%A7%86%E9%9C%8D%E5%85%B9">赫尔曼·冯·亥姆霍兹</a> 他发明了眼底镜, 此后眼科才独立成为一个学科. 虽然<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E7%88%BE%E7%93%A6%C2%B7%E5%8F%A4%E7%88%BE%E6%96%AF%E7%89%B9%E8%98%AD%E5%BE%B7">Allvar Gullstrand</a> 发明了裂隙灯而且霸气地干掉了相对论的诺贝尔奖, 但那时候眼科已经独立存在了.</p>
-<p>在"电子计算机"出现之前, computer是指计算员, 这是人类的一种工作, 而且, 大部分computer是女性. <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Human_computers_-_Dryden.jpg" alt="human computer"></p>
-<p><strong>一个人是不应该<a href="http://www.guokr.com/blog/310237/">被简单的词汇所限定住</a>, 你做什么或者不做什么, 只有自己才能决定. </strong></p>
-<p>何况学习编程只需要一台电脑甚至手机就可以了. 不试试么?</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#25105;&#24212;&#35813;&#22914;&#20309;&#23398;&#20064;&#32534;&#31243;">&#25105;&#24212;&#35813;&#22914;&#20309;&#23398;&#20064;&#32534;&#31243;<a class="anchor-link" href="#&#25105;&#24212;&#35813;&#22914;&#20309;&#23398;&#20064;&#32534;&#31243;">&#182;</a></h2><p>如何学好和如何学坏是一样的:</p>
-<ul>
-<li>被一些快感所诱惑</li>
-<li>快速上手, 逐步深入, 获得快感的正反馈</li>
-<li>传播, 让周围的人一起</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#20026;&#20160;&#20040;&#35201;&#23398;Python<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#182;</a></h1><p><a href="https://stackoverflow.blog/2017/09/06/incredible-growth-python/">https://stackoverflow.blog/2017/09/06/incredible-growth-python/</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#22914;&#20309;&#24320;&#22987;">&#22914;&#20309;&#24320;&#22987;<a class="anchor-link" href="#&#22914;&#20309;&#24320;&#22987;">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#35838;&#31243;&#22823;&#32434;">&#35838;&#31243;&#22823;&#32434;<a class="anchor-link" href="#&#35838;&#31243;&#22823;&#32434;">&#182;</a></h1><h2 id="&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;<a class="anchor-link" href="#&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#182;</a></h2><ul>
-<li>熟悉Jupyter环境</li>
-<li>熟悉交互式编程</li>
-<li>理解变量赋值</li>
-<li>函数定义</li>
-</ul>
-<h2 id="&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK-II&#20844;&#24335;&#35745;&#31639;&#22120;">&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK II&#20844;&#24335;&#35745;&#31639;&#22120;<a class="anchor-link" href="#&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK-II&#20844;&#24335;&#35745;&#31639;&#22120;">&#182;</a></h2><ul>
-<li>分支结构</li>
-</ul>
-<h2 id="&#25311;&#21512;&#33258;&#24049;&#30340;IOL&#20844;&#24335;">&#25311;&#21512;&#33258;&#24049;&#30340;IOL&#20844;&#24335;<a class="anchor-link" href="#&#25311;&#21512;&#33258;&#24049;&#30340;IOL&#20844;&#24335;">&#182;</a></h2><ul>
-<li>导入numpy</li>
-<li>numpy array</li>
-<li>读写excel数据</li>
-<li>循环与List</li>
-<li>tensorflow初步</li>
-</ul>
-<h2 id="EDTRs&#35270;&#21147;&#34920;">EDTRs&#35270;&#21147;&#34920;<a class="anchor-link" href="#EDTRs&#35270;&#21147;&#34920;">&#182;</a></h2><ul>
-<li>图像处理与OpenCV初步</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#21442;&#32771;&#36164;&#26009;">&#21442;&#32771;&#36164;&#26009;<a class="anchor-link" href="#&#21442;&#32771;&#36164;&#26009;">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">AL</span><span class="o">=</span><span class="mi">23</span>
+<span class="n">A</span><span class="o">=</span><span class="mf">118.4</span>
+<span class="n">K</span><span class="o">=</span><span class="mi">40</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">AL</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> 
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>24.900000000000006
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>其中AL,A,K,P这些都叫做变量, =符号并不是"等于", 而是被称做赋值的操作. 可以想象变量是一个盒子, 每次可以往里面装不同的东西.</p>
+<p>例如, 经常出现这样的问题, 一个病人本来用A常数为118.4的人工晶体, 现在因为某种原因, 突然需要换成A常数为119.0的人工晶体.</p>
+<p>变量A可以这样写:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="o">+</span><span class="mf">0.6</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>119.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>如果=符号是"等于", 那么A=A+0.6, 只能推导出A=0, 显然是不对的. 
+当改变了A常数以后, 如果需要计算新的人工晶体度数</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">AL</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>25.5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#32451;&#20064;">&#32451;&#20064;<a class="anchor-link" href="#&#32451;&#20064;">&#182;</a></h2><p>好了, 该你动手试一试了:</p>
+<ul>
+<li>患者眼轴长24.5mm</li>
+<li>角膜曲率: K_1=40, K_2=42</li>
+<li>选择使用A常数=119.0 的IOL</li>
+</ul>
+<p>求目标度数</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 在此行下面修改代码</span>
+<span class="n">AL</span><span class="o">=</span><span class="kc">None</span> <span class="c1"># 将None改成需要的数值</span>
+<span class="n">A</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">K_1</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">K_2</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">K</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">P</span><span class="o">=</span><span class="kc">None</span> <span class="c1"># 将None改成需要的计算公式</span>
+<span class="c1"># 在此行上面修改代码</span>
+<span class="c1"># 不要改变此行之后的代码</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>参考答案: 
+    20.849999999999994</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20989;&#25968;">&#20989;&#25968;<a class="anchor-link" href="#&#20989;&#25968;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>如果每次计算都要把P=A - 0.9<em>K - 2.5</em>AL写一遍, 是很麻烦的事情, 于是引出一个叫做函数的东西: 
+函数相当于把常用的计算过程写在一起, 方便反复使用.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">AL</span><span class="p">):</span>
+    <span class="n">P</span><span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">AL</span>
+    <span class="k">return</span> <span class="n">P</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">SRK</span><span class="p">(</span><span class="mf">119.0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">23</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>25.5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python中定义函数的方法是:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="err">函数名</span><span class="p">(</span><span class="err">参数</span><span class="mi">1</span><span class="p">,</span> <span class="err">参数</span><span class="mi">2</span><span class="p">,</span> <span class="err">参数</span><span class="mi">3</span><span class="p">,</span> <span class="err">参数</span><span class="mi">4</span><span class="p">):</span>
+    <span class="err">空</span><span class="mi">4</span><span class="err">个写函数体的内容</span>
+    <span class="k">return</span> <span class="err">函数值</span>
+</pre></div>
+<p>比如: def IOL_power(A,K,AL):</p>
+<p>IOL_power就是函数名, A, K, AL就是参数.</p>
+<p>在召唤函数的时候, 要把赋予参数数值</p>
+<p>IOL_power(119.0,40,23)</p>
+<p>python会按照数字的顺序依次把119.0赋给A, 40赋给K, 23赋给AL</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#32451;&#20064;:">&#32451;&#20064;:<a class="anchor-link" href="#&#32451;&#20064;:">&#182;</a></h2><p>重新定义SRK函数, 要使之能够计算两个角膜曲率K_1,K_2的情况. 其中: 
+$$ K=\frac{ K_1+K_2}{2} 
+\\
+P=A - 0.9 \times K + 2.5 \times AL
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K_1</span><span class="p">,</span><span class="n">K_2</span><span class="p">,</span><span class="n">AL</span><span class="p">):</span>
+    <span class="c1"># 在此行下面修改代码, 不要改变此行之前的代码</span>
+    <span class="n">K</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">P</span><span class="o">=</span><span class="kc">None</span> 
+    <span class="c1"># 在此行上面修改代码, 不要改变此行之后的代码</span>
+    <span class="k">return</span> <span class="n">P</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">SRK</span> <span class="p">(</span><span class="mf">119.0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>参考答案:  20.849999999999994</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20998;&#25903;">&#20998;&#25903;<a class="anchor-link" href="#&#20998;&#25903;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>下面, 我们来做个更复杂一些的SRK-II公式:</p>
+<p>SRK-II公式中, A常数是根据眼轴长AL改变的: 
+当</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
