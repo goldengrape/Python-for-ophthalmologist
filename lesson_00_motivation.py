@@ -1,8 +1,6 @@
 
 # coding: utf-8
 
-# 面向眼科医生的Python教程(0)
-
 # # 为什么我要写这个教程
 # 
 # 因为写教程, 教会其他人, 是学习的一部分, 也是学习过程中最为重要的一部分. 
@@ -66,6 +64,14 @@
 # 
 # ### 深度学习与眼科
 # 2012年发生了一件大事, 一个叫做AlexNet的程序可以比较准确地识别图片了,  用了一类叫做深度学习的技术. 从此以后深度学习一年比一年热, 人工智能的概念也重新回归, 接着围棋人类也输了. 
+# 
+# 深度学习技术, deep learning, 最擅长的就是处理图像. 而医疗领域里, 用图像最多的, 可能就是我们眼科了, 我觉得比放射科和病理科还多. 眼科是非常适合使用深度学习的临床学科. 
+# 
+# 因此, 可以看到: 
+# * Google启动了[糖尿病眼底病变诊断的计划](https://research.googleblog.com/2016/11/deep-learning-for-detection-of-diabetic.html) , 
+# * 中山大学眼科中心"刘奕志教授领衔中山大学和西安电子科技大学的研究团队，利用深度学习算法，建立了先天性白内障人工智能（AI）平台" http://www.gzzoc.com/xwzx/zxxw/201702/t20170214_92469.html
+# 
+# 这个列表还会逐渐增长, 要理解和掌握深度学习, 甚至哪怕是为了与相关学科的学者和工程师沟通, 眼科医生也需要掌握一些基本的编程概念. 编程是一种外语. 
 
 # ## 我已经不是学生了还学啥 
 # 
@@ -73,6 +79,7 @@
 # 
 # 眼科医生一直是多才多艺的. 我记得我刚进眼科的时候, 发现老教授用五笔字型打字比我输入快得多, 我刚开始在网上学公开课的时候, 老教授已经在研究Coursera并且推动眼科MOOC了. 
 # 
+# 眼科医生当然是需要终身学习的. 
 
 # ## 女医生也可以学编程么? 
 # 
@@ -83,8 +90,6 @@
 # ![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/334px-Ada_Lovelace_portrait.jpg)
 # 
 # 同理, 最伟大的眼科医生是[赫尔曼·冯·亥姆霍兹](https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%B0%94%E6%9B%BC%C2%B7%E5%86%AF%C2%B7%E4%BA%A5%E5%A7%86%E9%9C%8D%E5%85%B9) 他发明了眼底镜, 此后眼科才独立成为一个学科. 虽然[Allvar Gullstrand](https://zh.wikipedia.org/wiki/%E9%98%BF%E7%88%BE%E7%93%A6%C2%B7%E5%8F%A4%E7%88%BE%E6%96%AF%E7%89%B9%E8%98%AD%E5%BE%B7) 发明了裂隙灯而且霸气地干掉了相对论的诺贝尔奖, 但那时候眼科已经独立存在了. 
-# 
-# 在"电子计算机"出现之前, computer是指计算员, 这是人类的一种工作, 而且, 大部分computer是女性. ![human computer](https://upload.wikimedia.org/wikipedia/commons/0/06/Human_computers_-_Dryden.jpg)
 # 
 # __一个人是不应该[被简单的词汇所限定住](http://www.guokr.com/blog/310237/), 你做什么或者不做什么, 只有自己才能决定. __ 
 # 
@@ -100,18 +105,38 @@
 
 # # 为什么要学Python
 # 
-# https://stackoverflow.blog/2017/09/06/incredible-growth-python/
+# ## 人多
+# ![python使用人数](https://zgab33vy595fw5zq-zippykid.netdna-ssl.com/wp-content/uploads/2017/09/growth_major_languages-1-1400x1200.png)
+# 这是StackOverFLow上[统计](https://stackoverflow.blog/2017/09/06/incredible-growth-python/)的近年来使用各个计算机语言的程序员数量. 可以看出python一直成直线上升, 并且已经成为最受欢迎的语言. 
 # 
-
-# # 如何开始
+# 用的人多就意味着这种语言有大量的教程, 有良好的社区支持, 有什么深坑浅坑都已经有人踩过了, 并且放在了stackoverflow上或者可以被google轻易搜索到. 
 # 
+# ## 免费开源
+# python是免费并且开源的, (这两者略有差别). 在科学计算领域还有MatLab, Mathematica等数学软件也很好用, 但价格并不便宜, 使用盗版提心吊胆, 安装起来也不轻松. 
 # 
+# 从科学研究的角度来说, 科研就是开放源代码的, 实验数据应当可查证, 实验过程要公开详细, 能够被同行评议. 涉及到科研的计算工具其实也应当尽量是开放源代码的, 计算过程可以被同行评议. 否则埋藏很深的计算bug实验失败就很痛苦了. 
+# 
+# ## 先进技术用得多
+# python有大量的扩展包. 随着教程的进行, 我会开始import各种扩展包, python的package就像是强大的武器库, 甚至很可能你需要的一个功能, 早已经有人做好了相应的package放在网上了等着用了. 这其中有相当多的是与科学计算有关的.
+# 
+# python之所以这几年迅速流行, 我认为跟云计算, 大数据与机器学习的兴起有关. 
+# 
+# 这三件事情是紧密相关的, 最终的结果是你可以用便宜的价格租用一台网上的虚拟计算机, 就像我推荐使用的cocalc.com, 这台计算机通常是内置python的. 
+# 
+# 工业界主流用来编写深度学习软件的语言就是python, tensorflow/ pytorch/ keras都是基于python的. 可以说目前最新最热的领域就是建立在python之上. 
+# 
+# ## 简单
+# python是一种解释型动态高级语言. 就是说它不需要去理会一些诸如内存分配回收的系统相关问题. 相对于C/C++来说要简单很多. 以至于有"人生苦短, 我用python"的说法(参考: [人生苦短，我用Python. 一门编程语言的发展简史](https://www.15yan.com/story/1JKTBQvVk5e/) )
+# 
+# 当然从简单易学角度还会有其他更简单的语言, 例如p5.js, 但在实用与简单的平衡性上来说, python是比较好的. 
 
 # # 课程大纲
 # 
+# ## Jupyter环境的使用
+# * 熟悉CoCalc
+# * 熟悉文学式编程
+# 
 # ## 计算IOL度数的SRK公式计算器
-# * 熟悉Jupyter环境
-# * 熟悉交互式编程
 # * 理解变量赋值
 # * 函数定义
 # 
@@ -130,9 +155,8 @@
 # 
 # 
 
-# # 参考资料
-
 # In[ ]:
+
 
 
 

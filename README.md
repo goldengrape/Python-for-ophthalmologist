@@ -3,7 +3,7 @@
 # 序言
 
 
-本教程是面向眼科医生的python语言教程。python语言很简单，难在开始学习和坚持学习前三个月。
+本教程是面向眼科医生的python语言教程。python语言很简单, 难在开始学习和坚持学习前三个月。
 
 人之为学有难以乎? 靡不有初鲜克有终。
 
@@ -33,9 +33,9 @@
 
 [Cocalc.com](https://cocalc.com/)是一个非常优秀的在线科学计算工具集, 其中已经包含了python, 以及几乎所有科学计算所需要的python工具包.
 
-注册cocalc是免费的, 就初学者而言, 暂时还不需要购买其中的付费升级. 主要区别是远程主机联网的能力和运行稳定性. 当您已经达到一定水平后, 比如需要使用编写网页爬虫采集数据, 可以考虑购买升级. 目前本教程使用免费版足以.
+注册cocalc是免费的, 就初学者而言, 暂时还不需要购买其中的付费升级. 主要区别是远程主机联网的能力和运行稳定性. 当您已经达到一定水平后, 比如需要使用编写网页爬虫采集数据, 可以考虑购买升级. 目前本教程使用免费版足以.
 
-您可以将下载下来的本教程文件upload到cocalc中, 就可以直接运行 .ipynb 文件, 并且修改其中的作业练习代码, 完成练习.
+您可以将下载下来的本教程文件upload到cocalc中, 就可以直接运行 .ipynb 文件, 并且修改其中的作业练习代码, 完成练习.
 
 关于coclac的使用, 本教程中将有介绍.
 
@@ -48,11 +48,11 @@
 
 * [廖雪峰Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000) 也是不错的教程, 但我推荐将其作为速查手册, 需要了解python的某个细节时去查阅其中的文字说明. 我是不推荐按照他的教程在本地装python开始学的.
 
-* [Sololearn](https://www.sololearn.com/Course/Python/) Sololearn是个教程APP, 有android/iOS和网页版, 里面也是循序渐进的讲解了python的各个方面. 而且有实时的练习, 利用碎片时间也可以学得很好, 非常推荐.
+* [Sololearn](https://www.sololearn.com/Course/Python/) Sololearn是个教程APP, 有android/iOS和网页版, 里面也是循序渐进的讲解了python的各个方面. 而且有实时的练习, 利用碎片时间也可以学得很好, 非常推荐.
 
-综上, 我推荐您:
+综上,  我推荐您:
 1. 在手机上安装Sololearn, 利用碎片时间入门python;
-2. 注册使用[CoCalc](https://coclac.com/app) 在线阅读本教程并做与眼科相关的练习作业.
+2. 注册使用[CoCalc](https://coclac.com/app) 在线阅读本教程并做与眼科相关的练习作业.
 3. 逐渐开始您自己的python项目, 遇到问题时查询[廖雪峰Python文字教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000), 看[莫烦PYTHON视频教程](https://morvanzhou.github.io/tutorials/python-basic/) , 并请教Google/ [stackoverflow](https://stackoverflow.com/questions/tagged/python)
 
 # 学而时习之不亦说乎

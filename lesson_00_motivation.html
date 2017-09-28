@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>lesson_0_of_python_tutorial_for_ophthalmologist</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>lesson_00_motivation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11726,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11749,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11773,18 +11771,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>面向眼科医生的Python教程(0)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11805,8 +11792,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11822,8 +11808,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11848,23 +11833,29 @@ div#notebook {
 <h3 id="&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;">&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;<a class="anchor-link" href="#&#30524;&#31185;&#38656;&#35201;&#22788;&#29702;&#30340;&#25968;&#25454;&#26356;&#22797;&#26434;">&#182;</a></h3><p>眼科里能够采集到的数据是很多很复杂的, 这一点其他科比不了. 其他科室很少有能够采集到大量原始数据的, 比如内科靠听, 但他们很少能真正录下来一段心音肺音, 都是用各种名词来描述, 也就是用人力先处理了一遍; 普外靠摸, 但现代科技连触觉怎么采集怎么记录怎么重现都还没搞清楚; 而我们眼科靠看, 看的东西用相机照下来就是原始数据啊.</p>
 <p>但是原始数据的处理是很复杂的, 数理统计里面大多数情况下是在统计单一一个数字的变化, 不管你是用SPSS还是SAS, 做ANOVA还是Logistic回归, 通常能处理的变量个数也就是个位数的. 但对于图片, 能看清至少得100 x 100的像素吧, 一下就是10000个数, 很难交给常规的统计软件处理. 所以有些东西得自己写.</p>
 <h3 id="&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;">&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;<a class="anchor-link" href="#&#28145;&#24230;&#23398;&#20064;&#19982;&#30524;&#31185;">&#182;</a></h3><p>2012年发生了一件大事, 一个叫做AlexNet的程序可以比较准确地识别图片了,  用了一类叫做深度学习的技术. 从此以后深度学习一年比一年热, 人工智能的概念也重新回归, 接着围棋人类也输了.</p>
+<p>深度学习技术, deep learning, 最擅长的就是处理图像. 而医疗领域里, 用图像最多的, 可能就是我们眼科了, 我觉得比放射科和病理科还多. 眼科是非常适合使用深度学习的临床学科.</p>
+<p>因此, 可以看到:</p>
+<ul>
+<li>Google启动了<a href="https://research.googleblog.com/2016/11/deep-learning-for-detection-of-diabetic.html">糖尿病眼底病变诊断的计划</a> , </li>
+<li>中山大学眼科中心"刘奕志教授领衔中山大学和西安电子科技大学的研究团队，利用深度学习算法，建立了先天性白内障人工智能（AI）平台" <a href="http://www.gzzoc.com/xwzx/zxxw/201702/t20170214_92469.html">http://www.gzzoc.com/xwzx/zxxw/201702/t20170214_92469.html</a></li>
+</ul>
+<p>这个列表还会逐渐增长, 要理解和掌握深度学习, 甚至哪怕是为了与相关学科的学者和工程师沟通, 眼科医生也需要掌握一些基本的编程概念. 编程是一种外语.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;">&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;<a class="anchor-link" href="#&#25105;&#24050;&#32463;&#19981;&#26159;&#23398;&#29983;&#20102;&#36824;&#23398;&#21861;">&#182;</a></h2><p>也许你已经是主治/副主任/主任医师了.</p>
 <p>眼科医生一直是多才多艺的. 我记得我刚进眼科的时候, 发现老教授用五笔字型打字比我输入快得多, 我刚开始在网上学公开课的时候, 老教授已经在研究Coursera并且推动眼科MOOC了.</p>
+<p>眼科医生当然是需要终身学习的.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11872,15 +11863,13 @@ div#notebook {
 <p>第一位程序员, 是<a href="https://zh.wikipedia.org/zh-cn/%E6%84%9B%E9%81%94%C2%B7%E5%8B%92%E8%8A%99%E8%95%BE%E7%B5%B2">埃达·洛夫莱斯</a></p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/334px-Ada_Lovelace_portrait.jpg" alt=""></p>
 <p>同理, 最伟大的眼科医生是<a href="https://zh.wikipedia.org/wiki/%E8%B5%AB%E5%B0%94%E6%9B%BC%C2%B7%E5%86%AF%C2%B7%E4%BA%A5%E5%A7%86%E9%9C%8D%E5%85%B9">赫尔曼·冯·亥姆霍兹</a> 他发明了眼底镜, 此后眼科才独立成为一个学科. 虽然<a href="https://zh.wikipedia.org/wiki/%E9%98%BF%E7%88%BE%E7%93%A6%C2%B7%E5%8F%A4%E7%88%BE%E6%96%AF%E7%89%B9%E8%98%AD%E5%BE%B7">Allvar Gullstrand</a> 发明了裂隙灯而且霸气地干掉了相对论的诺贝尔奖, 但那时候眼科已经独立存在了.</p>
-<p>在"电子计算机"出现之前, computer是指计算员, 这是人类的一种工作, 而且, 大部分computer是女性. <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Human_computers_-_Dryden.jpg" alt="human computer"></p>
 <p><strong>一个人是不应该<a href="http://www.guokr.com/blog/310237/">被简单的词汇所限定住</a>, 你做什么或者不做什么, 只有自己才能决定. </strong></p>
 <p>何况学习编程只需要一台电脑甚至手机就可以了. 不试试么?</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11894,33 +11883,34 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#20026;&#20160;&#20040;&#35201;&#23398;Python<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#182;</a></h1><p><a href="https://stackoverflow.blog/2017/09/06/incredible-growth-python/">https://stackoverflow.blog/2017/09/06/incredible-growth-python/</a></p>
+<h1 id="&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#20026;&#20160;&#20040;&#35201;&#23398;Python<a class="anchor-link" href="#&#20026;&#20160;&#20040;&#35201;&#23398;Python">&#182;</a></h1><h2 id="&#20154;&#22810;">&#20154;&#22810;<a class="anchor-link" href="#&#20154;&#22810;">&#182;</a></h2><p><img src="https://zgab33vy595fw5zq-zippykid.netdna-ssl.com/wp-content/uploads/2017/09/growth_major_languages-1-1400x1200.png" alt="python使用人数">
+这是StackOverFLow上<a href="https://stackoverflow.blog/2017/09/06/incredible-growth-python/">统计</a>的近年来使用各个计算机语言的程序员数量. 可以看出python一直成直线上升, 并且已经成为最受欢迎的语言.</p>
+<p>用的人多就意味着这种语言有大量的教程, 有良好的社区支持, 有什么深坑浅坑都已经有人踩过了, 并且放在了stackoverflow上或者可以被google轻易搜索到.</p>
+<h2 id="&#20813;&#36153;&#24320;&#28304;">&#20813;&#36153;&#24320;&#28304;<a class="anchor-link" href="#&#20813;&#36153;&#24320;&#28304;">&#182;</a></h2><p>python是免费并且开源的, (这两者略有差别). 在科学计算领域还有MatLab, Mathematica等数学软件也很好用, 但价格并不便宜, 使用盗版提心吊胆, 安装起来也不轻松.</p>
+<p>从科学研究的角度来说, 科研就是开放源代码的, 实验数据应当可查证, 实验过程要公开详细, 能够被同行评议. 涉及到科研的计算工具其实也应当尽量是开放源代码的, 计算过程可以被同行评议. 否则埋藏很深的计算bug实验失败就很痛苦了.</p>
+<h2 id="&#20808;&#36827;&#25216;&#26415;&#29992;&#24471;&#22810;">&#20808;&#36827;&#25216;&#26415;&#29992;&#24471;&#22810;<a class="anchor-link" href="#&#20808;&#36827;&#25216;&#26415;&#29992;&#24471;&#22810;">&#182;</a></h2><p>python有大量的扩展包. 随着教程的进行, 我会开始import各种扩展包, python的package就像是强大的武器库, 甚至很可能你需要的一个功能, 早已经有人做好了相应的package放在网上了等着用了. 这其中有相当多的是与科学计算有关的.</p>
+<p>python之所以这几年迅速流行, 我认为跟云计算, 大数据与机器学习的兴起有关.</p>
+<p>这三件事情是紧密相关的, 最终的结果是你可以用便宜的价格租用一台网上的虚拟计算机, 就像我推荐使用的cocalc.com, 这台计算机通常是内置python的.</p>
+<p>工业界主流用来编写深度学习软件的语言就是python, tensorflow/ pytorch/ keras都是基于python的. 可以说目前最新最热的领域就是建立在python之上.</p>
+<h2 id="&#31616;&#21333;">&#31616;&#21333;<a class="anchor-link" href="#&#31616;&#21333;">&#182;</a></h2><p>python是一种解释型动态高级语言. 就是说它不需要去理会一些诸如内存分配回收的系统相关问题. 相对于C/C++来说要简单很多. 以至于有"人生苦短, 我用python"的说法(参考: <a href="https://www.15yan.com/story/1JKTBQvVk5e/">人生苦短，我用Python. 一门编程语言的发展简史</a> )</p>
+<p>当然从简单易学角度还会有其他更简单的语言, 例如p5.js, 但在实用与简单的平衡性上来说, python是比较好的.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#22914;&#20309;&#24320;&#22987;">&#22914;&#20309;&#24320;&#22987;<a class="anchor-link" href="#&#22914;&#20309;&#24320;&#22987;">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#35838;&#31243;&#22823;&#32434;">&#35838;&#31243;&#22823;&#32434;<a class="anchor-link" href="#&#35838;&#31243;&#22823;&#32434;">&#182;</a></h1><h2 id="&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;<a class="anchor-link" href="#&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#182;</a></h2><ul>
-<li>熟悉Jupyter环境</li>
-<li>熟悉交互式编程</li>
+<h1 id="&#35838;&#31243;&#22823;&#32434;">&#35838;&#31243;&#22823;&#32434;<a class="anchor-link" href="#&#35838;&#31243;&#22823;&#32434;">&#182;</a></h1><h2 id="Jupyter&#29615;&#22659;&#30340;&#20351;&#29992;">Jupyter&#29615;&#22659;&#30340;&#20351;&#29992;<a class="anchor-link" href="#Jupyter&#29615;&#22659;&#30340;&#20351;&#29992;">&#182;</a></h2><ul>
+<li>熟悉CoCalc</li>
+<li>熟悉文学式编程</li>
+</ul>
+<h2 id="&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;<a class="anchor-link" href="#&#35745;&#31639;IOL&#24230;&#25968;&#30340;SRK&#20844;&#24335;&#35745;&#31639;&#22120;">&#182;</a></h2><ul>
 <li>理解变量赋值</li>
 <li>函数定义</li>
 </ul>
@@ -11938,15 +11928,6 @@ div#notebook {
 <li>图像处理与OpenCV初步</li>
 </ul>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#21442;&#32771;&#36164;&#26009;">&#21442;&#32771;&#36164;&#26009;<a class="anchor-link" href="#&#21442;&#32771;&#36164;&#26009;">&#182;</a></h1>
 </div>
 </div>
 </div>
