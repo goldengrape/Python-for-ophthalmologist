@@ -11775,7 +11775,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Jupyter&#32534;&#31243;&#29615;&#22659;">Jupyter&#32534;&#31243;&#29615;&#22659;<a class="anchor-link" href="#Jupyter&#32534;&#31243;&#29615;&#22659;">&#182;</a></h1><h2 id="&#27880;&#20876;cocalc">&#27880;&#20876;cocalc<a class="anchor-link" href="#&#27880;&#20876;cocalc">&#182;</a></h2><h2 id="&#24314;&#31435;cocalc-project">&#24314;&#31435;cocalc project<a class="anchor-link" href="#&#24314;&#31435;cocalc-project">&#182;</a></h2><h2 id="&#26032;&#24314;jupyter-notebook">&#26032;&#24314;jupyter notebook<a class="anchor-link" href="#&#26032;&#24314;jupyter-notebook">&#182;</a></h2><h2 id="&#36816;&#34892;cell">&#36816;&#34892;cell<a class="anchor-link" href="#&#36816;&#34892;cell">&#182;</a></h2><h2 id="markdown&#19982;&#25968;&#23398;&#20844;&#24335;">markdown&#19982;&#25968;&#23398;&#20844;&#24335;<a class="anchor-link" href="#markdown&#19982;&#25968;&#23398;&#20844;&#24335;">&#182;</a></h2><h2 id="kernel">kernel<a class="anchor-link" href="#kernel">&#182;</a></h2>
+<h1 id="CoCalc&#32534;&#31243;&#29615;&#22659;">CoCalc&#32534;&#31243;&#29615;&#22659;<a class="anchor-link" href="#CoCalc&#32534;&#31243;&#29615;&#22659;">&#182;</a></h1><h2 id="&#27880;&#20876;cocalc">&#27880;&#20876;cocalc<a class="anchor-link" href="#&#27880;&#20876;cocalc">&#182;</a></h2><p>在浏览器
+地址栏内输入 cocalc.com 
+现代的浏览器基本都可以使用. 已知Chrome, Safari, 甚至Android手机上的Chrome和iPad上的Safari都能够很好地支持, IE没有试过. 
+不需要在本地安装任何东西.</p>
+<p><img src="./img/cocalc00.png" alt="">
+点击 Run CoCalc</p>
+<p><img src="./img/cocalc01.png" alt="">
+随便填点什么注册一个免费账户就可以开始了. 免费账户的主要限制在于不能从远端服务器再去访问网络, 如果你需要编写一个网络服务的程序, 那么就不适用了. 对于本教程所需要的内容, 免费账户已经足够使用了.</p>
+
 </div>
 </div>
 </div>
@@ -11783,7 +11791,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#25991;&#23398;&#24335;&#32534;&#31243;">&#25991;&#23398;&#24335;&#32534;&#31243;<a class="anchor-link" href="#&#25991;&#23398;&#24335;&#32534;&#31243;">&#182;</a></h1><h2 id="&#32467;&#26500;&#21270;">&#32467;&#26500;&#21270;<a class="anchor-link" href="#&#32467;&#26500;&#21270;">&#182;</a></h2><h2 id="&#27979;&#35797;">&#27979;&#35797;<a class="anchor-link" href="#&#27979;&#35797;">&#182;</a></h2>
+<h2 id="&#24314;&#31435;cocalc-project">&#24314;&#31435;cocalc project<a class="anchor-link" href="#&#24314;&#31435;cocalc-project">&#182;</a></h2><p>注册成功以后, 再进入Cocalc登录, 就可以到达项目管理的界面了, 一个Cocalc账户可以建立很多个项目(project), 你可以把一个project当作一台电脑, 如果觉得自己把一个project的设置搞乱了, 新建另外一个即可.</p>
+<p>新建project就是起个名字, 然后点击 create new project
+<img src="./img/cocalc02.png" alt=""></p>
+
 </div>
 </div>
 </div>
@@ -11791,22 +11802,132 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#29256;&#26412;&#31649;&#29702;">&#29256;&#26412;&#31649;&#29702;<a class="anchor-link" href="#&#29256;&#26412;&#31649;&#29702;">&#182;</a></h1><h2 id="github">github<a class="anchor-link" href="#github">&#182;</a></h2><h2 id="git&#24120;&#29992;&#21629;&#20196;">git&#24120;&#29992;&#21629;&#20196;<a class="anchor-link" href="#git&#24120;&#29992;&#21629;&#20196;">&#182;</a></h2>
+<h2 id="&#26032;&#24314;jupyter-notebook">&#26032;&#24314;jupyter notebook<a class="anchor-link" href="#&#26032;&#24314;jupyter-notebook">&#182;</a></h2><p>进入project以后, 会默认处于文件管理器的状态, 此时可以打开以前建立的文件, 或者新建文件. 
+现在, 我们新建一个jupyter文件, 请点击Create按钮
+<img src="./img/cocalc03.png" alt=""></p>
+<p>在cocalc里面支持很多中文件的编辑, 其中我们主要使用的是jupyter notebook, 这是一种python文件的变体, 在科学计算领域很流行. 本课程就是以jupyter为基础进行讲解的.</p>
+<p><img src="./img/cocalc04.png" alt=""></p>
+<p>点击了create按钮以后, 会发现展开了很多按钮, 先随便起个文件名, 比如lesson1, 不需要写上后缀, 然后点击jupyter notebook这个按钮, 就可以新建一个jupyter notebook了.</p>
+<p>如果已经是自己编辑好的文件, 或者是一些需要处理的数据文件, 也可以使用下面的upload部分来上传文件.</p>
+<p>新建文件中, 除了jupyter notebook, 还有:</p>
+<ul>
+<li>sage worksheet: 这是Sage版本的"notebook", sage是一个与python/ matlab / mathematica很类似的数学计算语言, 如果你需要随手解个简单的方程, 求导, 求积分之类的符号运算, sage都是不错的选择. </li>
+<li>markdown: 相当于一种使用纯文本编写的word文件, 形式是纯文本的, 但使用简单的符号来标记格式, 比word高级多了. 不过Jupyter notebook里面也支持markdown, 所以一般我就直接用jupyter了. </li>
+<li>LaTeX: 一流大学理工科学生写论文的时候应该是要用LaTeX的, 编辑数学公式很简单, markdown/ jupyter里面也可以借用LaTeX的部分命令来撰写数学公式. </li>
+<li>Terminal: cocalc里很有意思的是把命令行终端程序也当作一个文件来处理, 如果要进入Linux命令行工具, 那么就要新建一个terminal文件, 然后打开这个terminal文件就可以使用Linux命令了. cocalc是基于Linux的, 一些常用的Linux命令是很容易在网上找到的, 比如列出文件ls, 跳转目录cd, 删除文件rm, 如果要在命令行里运行python, 就直接输入python, 或者python3即可. </li>
+</ul>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Jupyter&#30028;&#38754;">Jupyter&#30028;&#38754;<a class="anchor-link" href="#Jupyter&#30028;&#38754;">&#182;</a></h2><p><img src="./img/cocalc05.png" alt=""></p>
+<ol>
+<li>菜单: 跟常规的菜单一样, 保存, 新建之类的命令都在里面, 里面的Help也很有帮助</li>
+<li>运行按钮: Jupyter里面是一个一个cell, 要运行一个cell的内容, 可以用这个按钮</li>
+<li>cell的类型: 可以是Code, 也可以是Markdown. 可以是需要运行的代码, 也可以是用来说明的文字. </li>
+<li>In[ ]: 后面的空格就是可以输入的代码或者文字的地方. </li>
+<li>如果对cocalc有什么问题, 可以用help按钮, 给后台发email询问, 他们的服务真的很棒, 经常是秒回. </li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="markdown&#19982;&#25968;&#23398;&#20844;&#24335;">markdown&#19982;&#25968;&#23398;&#20844;&#24335;<a class="anchor-link" href="#markdown&#19982;&#25968;&#23398;&#20844;&#24335;">&#182;</a></h2><p>我们先来写一段Markdown文本: 
+先把In[ ] 的形式改成Markdown: 
+<img src="./img/cocalc06.png" alt=""></p>
+<p>这时输入框前面的In[ ]标记没了, 输入框也变成Type markdown and LaTeX
+点击一下输入框, 或者按键盘上的return回车
+<img src="./img/cocalc07.png" alt=""></p>
+<p>然后就可以输入一段说明文字了, 与word等所见即所得的编辑器不同, 在markdown格式下, 文字的格式是以一些符号来标记的, 这样你可以专注于写作内容, 而不是排版. 排版的过程将由markdown编辑器自动完成渲染. 
+<img src="./img/cocalc08.png" alt=""></p>
+<p>其中你还可以使用两个美元符号来标记说要写一段公式了. 数学公式也是用纯文本来编写的, 这样更容易复制粘贴和修改.</p>
+<ul>
+<li>关于Mardown的格式, 请参考<a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">https://help.github.com/articles/basic-writing-and-formatting-syntax/</a></li>
+<li>关于撰写数学公式的LaTeX, 一开始可能会有困难, 可以使用类似 <a href="http://www.tutorialspoint.com/latex_equation_editor.htm">http://www.tutorialspoint.com/latex_equation_editor.htm</a> 的在线公式编辑器, 写几次以后就能掌握常用的格式了, 比如上标就是^ 符号, 下标就是 _ 符号</li>
+</ul>
+<p>输入完一段以后, 注意使用Shift+return来"运行", 一旦运行, 刚才写的纯文本就变成排版好的文字了.</p>
+<p><img src="./img/cocalc09.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#20195;&#30721;&#19982;&#36816;&#34892;">&#20195;&#30721;&#19982;&#36816;&#34892;<a class="anchor-link" href="#&#20195;&#30721;&#19982;&#36816;&#34892;">&#182;</a></h2><p>每个输入框默认是在code的模式下, 
+<img src="./img/cocalc10.png" alt="">
+在code的模式, 在输入框里就可以写入python代码了. 学任何一个语言, 第一个程序往往都是Hello World, 就是要让程序在屏幕上输出Hello World这个字符串. 这是程序员们的习惯, 就像刷手一样.</p>
+<p>python的hello world很简单, 只需要</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">)</span>
 </pre></div>
+<p>然后shift+return运行就可以了
+<img src="./img/cocalc11.png" alt=""></p>
+<p>一段输入和它的输出, 整体叫做一个cell, 这是可以整体移动/复制/删除/新建等等的操作, 可以看看菜单栏中cell那一部分. 也会有快捷键, 比如进入编辑状态就是return, 退出编辑状态是esc, 按m就切换到了markdown模式, 按b是在当前cell下面插入一个新的cell, 按两下d就是删除当前cell.</p>
+<p>jupyter是一个一个cell按照顺序依次运行的.</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kernel">Kernel<a class="anchor-link" href="#Kernel">&#182;</a></h2><p>Jupyter只是一个界面, 它运行的内核Kernel可以是很多种, 这个教程使用的kernel是Python3(anaconda), 请注意这一点
+<img src="./img/cocalc12.png" alt=""></p>
+<p>写程序都会有死机的可能, 自然也需要"重启", 这个功能也在Kernel菜单里面. 
+<img src="./img/cocalc13.png" alt=""></p>
+<p>要是人类能够轻易重启, 那该少了多少疾病啊.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#24110;&#21161;">&#24110;&#21161;<a class="anchor-link" href="#&#24110;&#21161;">&#182;</a></h2><p>本文只是一个简单的入门讲解, 关于Cocalc还有很多强大的功能</p>
+<p>cocalc的帮助系统很好, 在help菜单里有对jupyter notebook, markdown的说明
+<img src="./img/cocalc14.png" alt="">
+当然都是英文的. <strong> 英文差在临床医学是不可饶恕的恶行. </strong> 当然各种翻译网站也是越来越好的, 比如国内可以用<a href="http://fanyi.sogou.com/">http://fanyi.sogou.com/</a> deep learning的奇迹越来越多, 其中相当一部分就是用python写的呢.</p>
+<p>关于Cocalc的使用, 还可以有参考文档和视频教程. 
+<a href="https://github.com/sagemathinc/cocalc/wiki/Portal">https://github.com/sagemathinc/cocalc/wiki/Portal</a>
+<img src="./img/cocalc15.png" alt=""></p>
+<p>如果这些里面都找不到你面临问题的答案, 那就给他们发support ticket邮件吧. 如果你面对的问题是大家都可能出现的, 他们甚至直接在后台升级系统.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#25991;&#23398;&#32534;&#31243;">&#25991;&#23398;&#32534;&#31243;<a class="anchor-link" href="#&#25991;&#23398;&#32534;&#31243;">&#182;</a></h1><p>使用Jupyter写程序, 可以把说明部分用markdown来写, 把code写在说明后面, 然后直接附上输出结果. 这种方式就像是在写论文, 其实这种方式也有一个响亮的名字叫做"文学编程"</p>
+
+<pre><code>文学编程（英语：Literate programming）是由高德纳提出的编程方法，希望能用来取代结构化编程范型。[1]
+正如高德纳所构想的那样，文学编程范型不同于传统的由计算机强加的编写程序的方式和顺序，而代之以让程序员用他们自己思维内在的逻辑和流程所要求的顺序开发程序。[2]文学编程自由地表达逻辑，而且它用人类日常使用的语言写出来，就好像一篇文章一样，文章里包括用来隐藏抽象的宏和传统的源代码。
+
+https://zh.wikipedia.org/zh-hans/%E6%96%87%E5%AD%A6%E7%BC%96%E7%A8%8B</code></pre>
+<p>对于编写程序的初学者, 特别是对于眼科的初学者, 我强烈建议使用文学式编程来写程序.</p>
+<p>因为显然各位的临床工作都很繁忙, 自己写点东西很可能是利用下夜班或者挤出来的闲暇时间, 相信我, 你绝对不会想得起来上一次写了一半的代码是什么思路的, 等你慢慢回忆起上次精妙的算法时, 恐怕又到了出门诊或者上手术的时间了.</p>
+<p>所以, 仔细用文字记录下你思路, 就像自己对自己说话一样把想法用markdown写下来, 写清楚以后再去写一小段代码, 不要写太长, 每一段代码只做很小的一件事情, 然后就运行输出这一段代码, 看看它是否能够输出你所期望的结果. 经常我们还要进行一些测试, 来"证明"写下代码的正确性.</p>
+<p>几个关键经验:</p>
+<ul>
+<li>说明要比代码长</li>
+<li>每段代码只做一件小事</li>
+<li>每段代码的正确性都是要"可证明"的</li>
+</ul>
+
+</div>
+</div>
 </div>
     </div>
   </div>
