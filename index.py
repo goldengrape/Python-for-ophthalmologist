@@ -14,23 +14,29 @@
 # 
 # 本教程以眼科临床工作和科研中常见的场景循序渐进进行教学，并且在每一部分都有练习作业。请在阅读过程中随时停下来，自己输入代码试一试。多多练习才能体会到编程的乐趣。
 # 
-# 测试代码和完成作业推荐使用cocalc.com (http://cocalc.com/)这个在线编程环境。您可以将本教程中的ipython文件上传到自己的cocalc项目内，在其中修改代码并运行。
+# 测试代码和完成作业推荐使用[cocalc.com](http://cocalc.com/) 这个在线编程环境。您可以将本教程中的ipython文件上传到自己的cocalc项目内，在其中修改代码并运行。
+# 
+# 或者, 我最近刚刚发现微软也推出了在线版本的Jupyter服务, 您也可以使用本教程在[azure notebook上的镜像](https://notebooks.azure.com/goldengrape/libraries/Python-for-ophthalmologist) . 方便一键Clone, 对于没接触过git的初学者更加方便
 # 
 # 当您对python足够熟悉以后再过渡到本地安装python。不要急于求成，就像应该先以翼状胬肉手术练习好显微镜使用，然后才开始phaco或玻切手术的训练。
 # 
 # 本教程只是一个初级的入门教程，以科学计算部分为主。在您今后的学习工作中可能还需要编写收集数据的网络爬虫、深度神经网络、甚至手机app，这些内容请参考网上其他教程。
 # 
 # # 使用
+# 您可以使用[点击此处](https://goldengrape.github.io/Python-for-ophthalmologist)来阅读[本教程的html版本](https://goldengrape.github.io/Python-for-ophthalmologist), 这个版本应该也可以在手机上正确显示. 
 # 
 # 您可以点击 .ipynb 文件, 在线阅读本教程内容.
 # 
 # ![clickipynb](https://i.loli.net/2017/09/28/59cd07ccaf950.png)
 # 
-# 也可以点击 clone or download, 将本教程下载到电脑上阅读.
+# 还可以点击 clone or download, 将本教程下载到电脑上阅读.
 # 
 # ![clickdownload](https://i.loli.net/2017/09/28/59cd07b75acca.png)
 # 
 # 下载到电脑上阅读时, 您可以打开 .html文件阅读.
+# 
+# 如果您阅读的是azure notebooks上的[镜像](https://notebooks.azure.com/goldengrape/libraries/Python-for-ophthalmologist), 可以一键Clone, 边看边练. 
+# ![](./img/azurenotebooks.png)
 # 
 # # CoCalc
 # 
@@ -41,6 +47,12 @@
 # 您可以将下载下来的本教程文件upload到cocalc中, 就可以直接运行 .ipynb 文件, 并且修改其中的作业练习代码, 完成练习.
 # 
 # 关于coclac的使用, 本教程中将有介绍.
+# 
+# # Azure Notebook
+# [Azure Notebook](https://notebooks.azure.com) 是微软在自己的云服务上推出的在线编程工具, 当然也包含了python, 经过测试我发现大多数的python工具包也都已经包括了, 比cocalc更好一些的是, azure notebook中即使是免费账户也可以有权限自己在安装一些工具包. 毕竟微软财大气粗. 
+# 
+# 在azure notebook里, 有一键Clone的工具, 您只需要点击clone按钮, 就可以原样复制本教程, 并在自己的浏览器上进行修改和运行测试. 玩坏了也没关系, 大不了删掉再重新clone一次. 
+# ![](./img/azurenotebooks.png)
 # 
 # # 参考
 # * 任何时候, Google都是您的良师益友. 凡是有确定答案的问题, 通常都可以通过Google搜索到. 至于如何能够访问Google, 已经不在本教程范围内讨论.
@@ -74,6 +86,7 @@
 # 
 
 # In[ ]:
+
 
 
 

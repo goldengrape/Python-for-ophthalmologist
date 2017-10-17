@@ -11726,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11749,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11773,8 +11771,7 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11782,18 +11779,25 @@ div#notebook {
 <p>人之为学有难易乎? 靡不有初鲜克有终。</p>
 <p>编程是一种技能，学习编程和做手术一样，需要由易到难，勤于练习。不要寄希望于看一遍教程或者书籍就掌握写python的技巧，也不必强求自己一开始就写出华丽复杂的程序。</p>
 <p>本教程以眼科临床工作和科研中常见的场景循序渐进进行教学，并且在每一部分都有练习作业。请在阅读过程中随时停下来，自己输入代码试一试。多多练习才能体会到编程的乐趣。</p>
-<p>测试代码和完成作业推荐使用cocalc.com (<a href="http://cocalc.com/)这个在线编程环境。您可以将本教程中的ipython文件上传到自己的cocalc项目内，在其中修改代码并运行。">http://cocalc.com/)这个在线编程环境。您可以将本教程中的ipython文件上传到自己的cocalc项目内，在其中修改代码并运行。</a></p>
+<p>测试代码和完成作业推荐使用<a href="http://cocalc.com/">cocalc.com</a> 这个在线编程环境。您可以将本教程中的ipython文件上传到自己的cocalc项目内，在其中修改代码并运行。</p>
+<p>或者, 我最近刚刚发现微软也推出了在线版本的Jupyter服务, 您也可以使用本教程在<a href="https://notebooks.azure.com/goldengrape/libraries/Python-for-ophthalmologist">azure notebook上的镜像</a> . 方便一键Clone, 对于没接触过git的初学者更加方便</p>
 <p>当您对python足够熟悉以后再过渡到本地安装python。不要急于求成，就像应该先以翼状胬肉手术练习好显微镜使用，然后才开始phaco或玻切手术的训练。</p>
 <p>本教程只是一个初级的入门教程，以科学计算部分为主。在您今后的学习工作中可能还需要编写收集数据的网络爬虫、深度神经网络、甚至手机app，这些内容请参考网上其他教程。</p>
-<h1 id="&#20351;&#29992;">&#20351;&#29992;<a class="anchor-link" href="#&#20351;&#29992;">&#182;</a></h1><p>您可以点击 .ipynb 文件, 在线阅读本教程内容.</p>
+<h1 id="&#20351;&#29992;">&#20351;&#29992;<a class="anchor-link" href="#&#20351;&#29992;">&#182;</a></h1><p>您可以使用<a href="https://goldengrape.github.io/Python-for-ophthalmologist">点击此处</a>来阅读<a href="https://goldengrape.github.io/Python-for-ophthalmologist">本教程的html版本</a>, 这个版本应该也可以在手机上正确显示.</p>
+<p>您可以点击 .ipynb 文件, 在线阅读本教程内容.</p>
 <p><img src="https://i.loli.net/2017/09/28/59cd07ccaf950.png" alt="clickipynb"></p>
-<p>也可以点击 clone or download, 将本教程下载到电脑上阅读.</p>
+<p>还可以点击 clone or download, 将本教程下载到电脑上阅读.</p>
 <p><img src="https://i.loli.net/2017/09/28/59cd07b75acca.png" alt="clickdownload"></p>
 <p>下载到电脑上阅读时, 您可以打开 .html文件阅读.</p>
+<p>如果您阅读的是azure notebooks上的<a href="https://notebooks.azure.com/goldengrape/libraries/Python-for-ophthalmologist">镜像</a>, 可以一键Clone, 边看边练. 
+<img src="./img/azurenotebooks.png" alt=""></p>
 <h1 id="CoCalc">CoCalc<a class="anchor-link" href="#CoCalc">&#182;</a></h1><p><a href="https://cocalc.com/">Cocalc.com</a>是一个非常优秀的在线科学计算工具集, 其中已经包含了python, 以及几乎所有科学计算所需要的python工具包.</p>
 <p>注册cocalc是免费的, 就初学者而言, 暂时还不需要购买其中的付费升级. 主要区别是远程主机联网的能力和运行稳定性. 当您已经达到一定水平后, 比如需要使用编写网页爬虫采集数据, 可以考虑购买升级. 目前本教程使用免费版足以.</p>
 <p>您可以将下载下来的本教程文件upload到cocalc中, 就可以直接运行 .ipynb 文件, 并且修改其中的作业练习代码, 完成练习.</p>
 <p>关于coclac的使用, 本教程中将有介绍.</p>
+<h1 id="Azure-Notebook">Azure Notebook<a class="anchor-link" href="#Azure-Notebook">&#182;</a></h1><p><a href="https://notebooks.azure.com">Azure Notebook</a> 是微软在自己的云服务上推出的在线编程工具, 当然也包含了python, 经过测试我发现大多数的python工具包也都已经包括了, 比cocalc更好一些的是, azure notebook中即使是免费账户也可以有权限自己在安装一些工具包. 毕竟微软财大气粗.</p>
+<p>在azure notebook里, 有一键Clone的工具, 您只需要点击clone按钮, 就可以原样复制本教程, 并在自己的浏览器上进行修改和运行测试. 玩坏了也没关系, 大不了删掉再重新clone一次. 
+<img src="./img/azurenotebooks.png" alt=""></p>
 <h1 id="&#21442;&#32771;">&#21442;&#32771;<a class="anchor-link" href="#&#21442;&#32771;">&#182;</a></h1><ul>
 <li><p>任何时候, Google都是您的良师益友. 凡是有确定答案的问题, 通常都可以通过Google搜索到. 至于如何能够访问Google, 已经不在本教程范围内讨论.</p>
 </li>
@@ -11817,8 +11821,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
