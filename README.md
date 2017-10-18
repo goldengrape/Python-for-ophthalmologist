@@ -24,16 +24,16 @@
 
 您可以点击 .ipynb 文件, 在线阅读本教程内容.
 
-![clickipynb](https://i.loli.net/2017/09/28/59cd07ccaf950.png)
+![clickipynb](https://i.loli.net/2017/09/28/59cd07ccaf950.png){: width="600px"}
 
 还可以点击 clone or download, 将本教程下载到电脑上阅读.
 
-![clickdownload](https://i.loli.net/2017/09/28/59cd07b75acca.png)
+![clickdownload](https://i.loli.net/2017/09/28/59cd07b75acca.png){: width="600px"}
 
 下载到电脑上阅读时, 您可以打开 .html文件阅读.
 
 如果您阅读的是azure notebooks上的[镜像](https://notebooks.azure.com/goldengrape/libraries/Python-for-ophthalmologist), 可以一键Clone, 边看边练.
-![](./img/azurenotebooks.png)
+![](./img/azurenotebooks.png){: width="600px"}
 
 # CoCalc
 
