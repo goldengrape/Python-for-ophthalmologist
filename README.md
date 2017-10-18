@@ -79,3 +79,5 @@
   * [第 3 课, jupyter笔记本下载](./lesson_03_SRKII.ipynb)
 * [第 4 课, 一千零一个病人](./lesson_04_1001patients.html)
   * [第 4 课, jupyter笔记本下载](./lesson_04_1001patients.ipynb)
+* [第 5 课, save 和 load](./lesson_05_pandas.html)
+  * [第 5 课, jupyter笔记本下载](./lesson_05_pandas.ipynb)
