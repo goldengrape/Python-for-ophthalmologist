@@ -11800,7 +11800,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -11855,7 +11855,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">filenames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;IOLdata00.xlsx&#39;</span><span class="p">,</span><span class="s1">&#39;IOLdata01.xlsx&#39;</span><span class="p">]</span>
@@ -11900,7 +11900,7 @@ IOLdata01.xlsx
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
@@ -11923,7 +11923,7 @@ IOLdata01.xlsx
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-39-ecdbda71648b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-6-ecdbda71648b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>pathname<span class="ansi-blue-fg">,</span>filenames<span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">~/anaconda3/envs/opencvenv/lib/python3.5/posixpath.py</span> in <span class="ansi-cyan-fg">join</span><span class="ansi-blue-fg">(a, *p)</span>
@@ -11968,7 +11968,7 @@ IOLdata01.xlsx
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">filename_list</span><span class="o">=</span><span class="p">[]</span>
@@ -12039,7 +12039,7 @@ IOLdata01.xlsx
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -12074,7 +12074,7 @@ IOLdata01.xlsx
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 我更喜欢这样的方式, 运算速度上会有一点差别, 但这个加法太简单, 不明显</span>
@@ -12129,7 +12129,7 @@ IOLdata01.xlsx
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">f_list</span><span class="o">=</span><span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
@@ -12173,16 +12173,18 @@ IOLdata01.xlsx
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="pandas">pandas<a class="anchor-link" href="#pandas">&#182;</a></h1>
+<h1 id="pandas">pandas<a class="anchor-link" href="#pandas">&#182;</a></h1><p>Pandas是一个python的数据处理库, 类似于numpy是一个科学计算库一样. 很多跟数据处理相关的工作需要用pandas来完成, 这堂课里我们只需要使用到跟excel读写相关的内容, 但pandas能做得东西更多, 具体的请参考Python for Data Analysis这本书, 这本书有免费的<a href="https://github.com/wesm/pydata-book">在线版本</a>, 也有中文版<a href="https://www.amazon.cn/mn/detailApp/?asin=B00KD7Q7U2"><利用Python进行数据分析></a> (居然还是kindle unlimited可免费借阅的, 总算让我觉得没白买).</p>
+<p>使用pandas, 也要先import, 一般把pandas简称为pd, 所以就是</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># pandas里面还有两个坑, 要确定已经装入了xlrd和openpyxl</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 </pre></div>
 
 </div>
@@ -12190,13 +12192,155 @@ IOLdata01.xlsx
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(如果在本地电脑上安装pandas, 要小心里面还有两个坑, excel的读取和写入要借助另一组包xlrd和openpyxl, 需要安装他们, 否则报错. 我而anaconda居然没有自动解决这个问题. 不过cocalc和azure notebooks里面没问题)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>读取excel文件就是用pd.read_excel(文件名), 读取的结果是一种pandas的叫做DataFrame的数据结构, 看起来和带有索引的表格很接近.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testdata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">f_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">testdata</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>      ID   name    A    AL    K1    K2  Ref
+0  21010  Bob00  119  21.7  41.3  40.3   -3
+1  21011  Bob01  119  20.7  39.1  40.9   -3
+2  21012  Bob02  119  24.7  40.8  40.1   -3
+3  21013  Bob03  119  19.3  39.8  42.4   -3
+4  21014  Bob04  119  20.7  40.6  39.1   -3
+5  21015  Bob05  119  22.0  42.2  42.6   -3
+6  21016  Bob06  119  19.3  40.0  39.7   -3
+7  21017  Bob07  119  25.5  41.0  39.3   -3
+8  21018  Bob08  119  21.3  40.6  39.4   -3
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>如果要取某一列的数据, 只需要用 .列名来调用, 如果要调用一列数据中的具体某个数据, 就用方括号括上序号即可.</p>
+<p>数据列和numpy的列向量在某种程度上是互通的.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">testdata</span><span class="o">.</span><span class="n">AL</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">testdata</span><span class="o">.</span><span class="n">K1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0    21.7
+1    20.7
+2    24.7
+3    19.3
+4    20.7
+5    22.0
+6    19.3
+7    25.5
+8    21.3
+Name: AL, dtype: float64
+39.1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#21462;&#22810;&#20010;excel&#34920;&#26684;">&#35835;&#21462;&#22810;&#20010;excel&#34920;&#26684;<a class="anchor-link" href="#&#35835;&#21462;&#22810;&#20010;excel&#34920;&#26684;">&#182;</a></h1><p>前面折腾了半天的多个文件名, 就是为了要读取多个表格, 然后合并.</p>
+<p>读取多个表格可以使用for循环, 也可以用list comprehension</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">IOLdata_list</span><span class="o">=</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">f_list</span><span class="p">]</span>
-<span class="n">IOLdata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">IOLdata_list</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>合并数据表有多种方法, 在这里我使用的是pd.concat, 它能够把列表中的多个DataFrame合并成一个, 其中ignore_index=True是将索引序号给忽略重排了, 否则会出现两组1号, 两组2号. . . 关于pandas.concat的详细说明请Google查询.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">IOLdata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">IOLdata_list</span><span class="p">,</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 这里可以试试把True改成False</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">IOLdata</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span><span class="mi">21</span><span class="p">])</span>
 </pre></div>
 
@@ -12227,45 +12371,18 @@ IOLdata01.xlsx
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">IOLdata</span><span class="o">.</span><span class="n">K1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>读取了数据以后, 就可以直接当作列向量丢进函数里面了. 重写一下上节课的SRK_2函数. 如果上节课作业没有写的同学, 请不要看下面的剧透, 先回去把上节课作业写完.</p>
 
 </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0    42.3
-1    42.4
-2    42.7
-3    39.5
-4    41.5
-Name: K1, dtype: float64
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">on_L_change_A</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Lmin</span><span class="p">,</span><span class="n">Lmax</span><span class="p">,</span><span class="n">deltaA</span><span class="p">):</span>
@@ -12294,39 +12411,138 @@ Name: K1, dtype: float64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35843;&#29992;&#25968;&#25454;">&#35843;&#29992;&#25968;&#25454;<a class="anchor-link" href="#&#35843;&#29992;&#25968;&#25454;">&#182;</a></h1><p>前面说过, 就是用 .列名, 就可以调用已经读入的excel数据了, 而且在使用上和numpy array没有区别. 所以就可以直接送入到已经写好的函数中.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">IOLpower</span><span class="o">=</span><span class="n">SRK_2</span><span class="p">(</span><span class="n">IOLdata</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">IOLdata</span><span class="o">.</span><span class="n">K1</span><span class="p">,</span><span class="n">IOLdata</span><span class="o">.</span><span class="n">K2</span><span class="p">,</span><span class="n">IOLdata</span><span class="o">.</span><span class="n">AL</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">IOLpower</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">IOLpower</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">IOLpower</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0    25.590
+1    23.235
+2    36.000
+3    19.465
+4    26.205
+dtype: float64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20445;&#23384;&#25968;&#25454;">&#20445;&#23384;&#25968;&#25454;<a class="anchor-link" href="#&#20445;&#23384;&#25968;&#25454;">&#182;</a></h1><p>计算完成的结果, 应该存储下来, 供以后处理, 只保存计算好的IOL度数似乎没什么意义, 因为看不出与其他信息之间的关系了. 最简单的方法就是在原来的表后面加上一列计算结果, 然后保存.</p>
+<p>之前在合并多个excel表格的时候见过了pd.concat, 此处我们使用DataFrame的 .join()函数来给原来的IOLdata后面添加一列. (这里也可以用pd.concat)</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">newIOLdata</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">IOLdata</span><span class="p">,</span><span class="n">IOLpower</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">newIOLdata</span><span class="o">=</span><span class="n">IOLdata</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">IOLpower</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newIOLdata</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>       ID   name      A    AL    K1    K2  Ref       0
+0   11010  Sam00  118.4  22.4  42.3  39.5 -0.5  25.590
+1   11011  Sam01  118.4  23.0  42.4  41.3 -0.5  23.235
+2   11012  Sam02  118.4  19.4  42.7  39.3 -0.5  36.000
+3   11013  Sam03  118.4  25.1  39.5  39.8 -0.5  19.465
+4   11014  Sam04  118.4  22.1  41.5  40.6 -0.5  26.205
+5   11015  Sam05  118.4  24.0  42.2  41.2 -0.5  20.870
+6   11016  Sam06  118.4  22.6  41.3  40.5 -0.5  25.090
+7   11017  Sam07  118.4  21.6  41.7  39.2 -3.0  28.995
+8   11018  Sam08  118.4  24.5  40.5  42.7 -3.0  19.710
+9   11019  Sam09  118.4  19.0  41.6  41.8 -3.0  36.370
+10  11020  Sam10  118.4  24.4  39.0  40.4 -3.0  21.670
+11  11021  Sam11  118.4  19.0  42.4  39.3 -3.0  37.135
+12  11022  Sam12  118.4  22.0  39.8  42.9 -3.0  27.185
+13  11023  Sam13  118.4  24.1  39.7  39.8  0.0  22.375
+14  11024  Sam14  118.4  23.2  39.8  42.2  0.0  23.500
+15  11025  Sam15  118.4  20.0  40.4  40.9  0.0  34.815
+16  11026  Sam16  118.4  25.5  41.2  41.3  0.0  17.025
+17  11027  Sam17  118.4  24.6  42.6  39.5  0.0  19.455
+18  11028  Sam18  118.4  19.6  41.7  40.8  0.0  35.275
+19  21010  Bob00  119.0  21.7  41.3  40.3 -3.0  29.030
+20  21011  Bob01  119.0  20.7  39.1  40.9 -3.0  33.250
+21  21012  Bob02  119.0  24.7  40.8  40.1 -3.0  20.345
+22  21013  Bob03  119.0  19.3  39.8  42.4 -3.0  36.760
+23  21014  Bob04  119.0  20.7  40.6  39.1 -3.0  33.385
+24  21015  Bob05  119.0  22.0  42.2  42.6 -3.0  26.840
+25  21016  Bob06  119.0  19.3  40.0  39.7 -3.0  37.885
+26  21017  Bob07  119.0  25.5  41.0  39.3 -3.0  18.615
+27  21018  Bob08  119.0  21.3  40.6  39.4 -3.0  30.750
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>最后就是写入excel文件了. 动作与读取类似, 但这个 .to_excel(文件名)的函数是直接由DataFrame数据自带的函数, 所以用如下形式调用</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#print(newIOLdata)</span>
-<span class="c1"># 要确保装入了openpyxl</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 要确保装入了openpyxl</span>
 <span class="n">newIOLdata</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span><span class="s1">&#39;output.xlsx&#39;</span><span class="p">))</span>
 </pre></div>
 
@@ -12335,18 +12551,54 @@ Name: K1, dtype: float64
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>用Linux命令列一下data文件夹下的文件名, 确认是否新产生了'output.xlsx'的文件</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>ls data
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>IOLdata00.xlsx IOLdata01.xlsx output.xlsx
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>如果在cocalc或者azure notebooks上, 就可以在文件中点击下载看看了</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>

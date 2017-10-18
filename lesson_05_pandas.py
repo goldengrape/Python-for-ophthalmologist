@@ -21,7 +21,7 @@
 # 
 # 所以我们需要用os库中的os.path.join函数来把文件的路径和文件名按照当前运行时的操作系统要求组合起来.
 
-# In[62]:
+# In[4]:
 
 
 import os
@@ -41,7 +41,7 @@ print(os.path.join(pathname,fname))
 # 其实也没什么神秘的, 就是用方括号[ ]装起来的一组东西, 这组东西必须是一个类型的, 比如都是数字, 或者都是字符. 
 # 如果要访问第0个元素, 就用 list名[0], 第1个元素就用 list名[1]. ** 注意python是从0开始计数的. **
 
-# In[40]:
+# In[5]:
 
 
 filenames=['IOLdata00.xlsx','IOLdata01.xlsx']
@@ -52,7 +52,7 @@ print(filenames[1])
 
 # 试试用os.path.join产生一组带有路径的文件名? 
 
-# In[39]:
+# In[6]:
 
 
 os.path.join(pathname,filenames)
@@ -64,7 +64,7 @@ os.path.join(pathname,filenames)
 # 
 # 这也是我之前刻意逃避的一个内容, 如果是处理数字, 我推荐尽量避免使用循环, 而直接用向量来处理. 但现在要处理字符串的部分, 可能还是需要介绍一下循环的使用
 
-# In[44]:
+# In[7]:
 
 
 filename_list=[]
@@ -100,7 +100,7 @@ print(filename_list)
 # 
 # for循环最常见的例子, 恐怕就是从1一直加到100了
 
-# In[59]:
+# In[8]:
 
 
 import numpy as np
@@ -110,7 +110,7 @@ for i in np.arange(1,100+1):  # 注意arange也是<, 所以要加到100, arange�
 print(s)
 
 
-# In[56]:
+# In[9]:
 
 
 # 我更喜欢这样的方式, 运算速度上会有一点差别, 但这个加法太简单, 不明显
@@ -133,7 +133,7 @@ print(s)
 # * 第一部分是os.path.join(pathname,f) , 表示list中的元素是怎么来的
 # * 第二部分是一个类似for循环的东西, for f in filenames
 
-# In[61]:
+# In[10]:
 
 
 f_list=[os.path.join(pathname,f) for f in filenames]
@@ -145,28 +145,63 @@ print(f_list)
 # 终于收拾好了文件名, 接下来我们可以读取excel文件了
 
 # # pandas
+# 
+# Pandas是一个python的数据处理库, 类似于numpy是一个科学计算库一样. 很多跟数据处理相关的工作需要用pandas来完成, 这堂课里我们只需要使用到跟excel读写相关的内容, 但pandas能做得东西更多, 具体的请参考Python for Data Analysis这本书, 这本书有免费的[在线版本](https://github.com/wesm/pydata-book), 也有中文版[<利用Python进行数据分析>](https://www.amazon.cn/mn/detailApp/?asin=B00KD7Q7U2) (居然还是kindle unlimited可免费借阅的, 总算让我觉得没白买). 
+# 
+# 使用pandas, 也要先import, 一般把pandas简称为pd, 所以就是
 
-# In[26]:
+# In[11]:
 
 
-import pandas as pd # pandas里面还有两个坑, 要确定已经装入了xlrd和openpyxl
+import pandas as pd 
 
 
-# In[28]:
+# (如果在本地电脑上安装pandas, 要小心里面还有两个坑, excel的读取和写入要借助另一组包xlrd和openpyxl, 需要安装他们, 否则报错. 我而anaconda居然没有自动解决这个问题. 不过cocalc和azure notebooks里面没问题)
+
+# 读取excel文件就是用pd.read_excel(文件名), 读取的结果是一种pandas的叫做DataFrame的数据结构, 看起来和带有索引的表格很接近. 
+
+# In[12]:
+
+
+testdata=pd.read_excel(f_list[1])
+print(testdata)
+
+
+# 如果要取某一列的数据, 只需要用 .列名来调用, 如果要调用一列数据中的具体某个数据, 就用方括号括上序号即可. 
+# 
+# 数据列和numpy的列向量在某种程度上是互通的. 
+
+# In[13]:
+
+
+print(testdata.AL)
+print(testdata.K1[1])
+
+
+# # 读取多个excel表格
+# 
+# 前面折腾了半天的多个文件名, 就是为了要读取多个表格, 然后合并. 
+# 
+# 读取多个表格可以使用for循环, 也可以用list comprehension
+
+# In[14]:
 
 
 IOLdata_list=[pd.read_excel(f) for f in f_list]
-IOLdata=pd.concat(IOLdata_list,ignore_index=True)
+
+
+# 合并数据表有多种方法, 在这里我使用的是pd.concat, 它能够把列表中的多个DataFrame合并成一个, 其中ignore_index=True是将索引序号给忽略重排了, 否则会出现两组1号, 两组2号. . . 关于pandas.concat的详细说明请Google查询. 
+
+# In[15]:
+
+
+IOLdata=pd.concat(IOLdata_list,ignore_index=True) # 这里可以试试把True改成False
 print(IOLdata[17:21])
 
 
-# In[29]:
+# 读取了数据以后, 就可以直接当作列向量丢进函数里面了. 重写一下上节课的SRK_2函数. 如果上节课作业没有写的同学, 请不要看下面的剧透, 先回去把上节课作业写完. 
 
-
-print(IOLdata.K1[0:5])
-
-
-# In[30]:
+# In[16]:
 
 
 def on_L_change_A(L,A,Lmin,Lmax,deltaA):
@@ -190,28 +225,46 @@ def SRK_2(A,K_1,K_2,L,REF=0):
     return P_ammc
 
 
-# In[31]:
+# # 调用数据
+# 
+# 前面说过, 就是用 .列名, 就可以调用已经读入的excel数据了, 而且在使用上和numpy array没有区别. 所以就可以直接送入到已经写好的函数中. 
+
+# In[17]:
 
 
 IOLpower=SRK_2(IOLdata.A, IOLdata.K1,IOLdata.K2,IOLdata.AL)
+print(IOLpower[0:5])
+IOLpower=pd.DataFrame(IOLpower)
 
 
-# In[32]:
+# # 保存数据
+# 
+# 计算完成的结果, 应该存储下来, 供以后处理, 只保存计算好的IOL度数似乎没什么意义, 因为看不出与其他信息之间的关系了. 最简单的方法就是在原来的表后面加上一列计算结果, 然后保存. 
+# 
+# 之前在合并多个excel表格的时候见过了pd.concat, 此处我们使用DataFrame的 .join()函数来给原来的IOLdata后面添加一列. (这里也可以用pd.concat)
+
+# In[18]:
 
 
-newIOLdata=pd.concat([IOLdata,IOLpower],axis=1)
+newIOLdata=IOLdata.join(IOLpower)
+print(newIOLdata)
 
 
-# In[33]:
+# 最后就是写入excel文件了. 动作与读取类似, 但这个 .to_excel(文件名)的函数是直接由DataFrame数据自带的函数, 所以用如下形式调用
+
+# In[19]:
 
 
-#print(newIOLdata)
 # 要确保装入了openpyxl
 newIOLdata.to_excel(os.path.join(pathname,'output.xlsx'))
 
 
-# In[ ]:
+# 用Linux命令列一下data文件夹下的文件名, 确认是否新产生了'output.xlsx'的文件
+
+# In[20]:
 
 
+get_ipython().system('ls data')
 
 
+# 如果在cocalc或者azure notebooks上, 就可以在文件中点击下载看看了
