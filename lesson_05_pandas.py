@@ -21,7 +21,7 @@
 # 
 # 所以我们需要用os库中的os.path.join函数来把文件的路径和文件名按照当前运行时的操作系统要求组合起来.
 
-# In[4]:
+# In[27]:
 
 
 import os
@@ -41,7 +41,7 @@ print(os.path.join(pathname,fname))
 # 其实也没什么神秘的, 就是用方括号[ ]装起来的一组东西, 这组东西必须是一个类型的, 比如都是数字, 或者都是字符. 
 # 如果要访问第0个元素, 就用 list名[0], 第1个元素就用 list名[1]. ** 注意python是从0开始计数的. **
 
-# In[5]:
+# In[28]:
 
 
 filenames=['IOLdata00.xlsx','IOLdata01.xlsx']
@@ -52,7 +52,7 @@ print(filenames[1])
 
 # 试试用os.path.join产生一组带有路径的文件名? 
 
-# In[6]:
+# In[29]:
 
 
 os.path.join(pathname,filenames)
@@ -64,7 +64,7 @@ os.path.join(pathname,filenames)
 # 
 # 这也是我之前刻意逃避的一个内容, 如果是处理数字, 我推荐尽量避免使用循环, 而直接用向量来处理. 但现在要处理字符串的部分, 可能还是需要介绍一下循环的使用
 
-# In[7]:
+# In[30]:
 
 
 filename_list=[]
@@ -100,7 +100,7 @@ print(filename_list)
 # 
 # for循环最常见的例子, 恐怕就是从1一直加到100了
 
-# In[8]:
+# In[31]:
 
 
 import numpy as np
@@ -110,7 +110,7 @@ for i in np.arange(1,100+1):  # 注意arange也是<, 所以要加到100, arange�
 print(s)
 
 
-# In[9]:
+# In[32]:
 
 
 # 我更喜欢这样的方式, 运算速度上会有一点差别, 但这个加法太简单, 不明显
@@ -133,7 +133,7 @@ print(s)
 # * 第一部分是os.path.join(pathname,f) , 表示list中的元素是怎么来的
 # * 第二部分是一个类似for循环的东西, for f in filenames
 
-# In[10]:
+# In[33]:
 
 
 f_list=[os.path.join(pathname,f) for f in filenames]
@@ -150,7 +150,7 @@ print(f_list)
 # 
 # 使用pandas, 也要先import, 一般把pandas简称为pd, 所以就是
 
-# In[11]:
+# In[34]:
 
 
 import pandas as pd 
@@ -160,7 +160,7 @@ import pandas as pd
 
 # 读取excel文件就是用pd.read_excel(文件名), 读取的结果是一种pandas的叫做DataFrame的数据结构, 看起来和带有索引的表格很接近. 
 
-# In[12]:
+# In[35]:
 
 
 testdata=pd.read_excel(f_list[1])
@@ -171,7 +171,7 @@ print(testdata)
 # 
 # 数据列和numpy的列向量在某种程度上是互通的. 
 
-# In[13]:
+# In[36]:
 
 
 print(testdata.AL)
@@ -184,7 +184,7 @@ print(testdata.K1[1])
 # 
 # 读取多个表格可以使用for循环, 也可以用list comprehension
 
-# In[14]:
+# In[37]:
 
 
 IOLdata_list=[pd.read_excel(f) for f in f_list]
@@ -192,7 +192,7 @@ IOLdata_list=[pd.read_excel(f) for f in f_list]
 
 # 合并数据表有多种方法, 在这里我使用的是pd.concat, 它能够把列表中的多个DataFrame合并成一个, 其中ignore_index=True是将索引序号给忽略重排了, 否则会出现两组1号, 两组2号. . . 关于pandas.concat的详细说明请Google查询. 
 
-# In[15]:
+# In[38]:
 
 
 IOLdata=pd.concat(IOLdata_list,ignore_index=True) # 这里可以试试把True改成False
@@ -201,10 +201,13 @@ print(IOLdata[17:21])
 
 # 读取了数据以后, 就可以直接当作列向量丢进函数里面了. 重写一下上节课的SRK_2函数. 如果上节课作业没有写的同学, 请不要看下面的剧透, 先回去把上节课作业写完. 
 
-# In[16]:
+# In[39]:
 
 
 def on_L_change_A(L,A,Lmin,Lmax,deltaA):
+    #A=np.asarray(A).copy()
+    #L=np.asarray(L).copy()
+    assert A.shape()==L.shape()
     pickout=np.logical_and(L>Lmin, L<=Lmax)
     A[pickout] += deltaA
     return A
@@ -229,7 +232,7 @@ def SRK_2(A,K_1,K_2,L,REF=0):
 # 
 # 前面说过, 就是用 .列名, 就可以调用已经读入的excel数据了, 而且在使用上和numpy array没有区别. 所以就可以直接送入到已经写好的函数中. 
 
-# In[17]:
+# In[40]:
 
 
 IOLpower=SRK_2(IOLdata.A, IOLdata.K1,IOLdata.K2,IOLdata.AL)
@@ -243,7 +246,7 @@ IOLpower=pd.DataFrame(IOLpower)
 # 
 # 之前在合并多个excel表格的时候见过了pd.concat, 此处我们使用DataFrame的 .join()函数来给原来的IOLdata后面添加一列. (这里也可以用pd.concat)
 
-# In[18]:
+# In[41]:
 
 
 newIOLdata=IOLdata.join(IOLpower)
@@ -268,3 +271,22 @@ get_ipython().system('ls data')
 
 
 # 如果在cocalc或者azure notebooks上, 就可以在文件中点击下载看看了
+
+# # 目录
+# * [第 0 课, 动机](./lesson_00_motivation.html)
+# * [第 1 课, CoCalc](./lesson_01_jupyter.html)
+# * [第 2 课, SRK公式](./lesson_02_SRK.html)
+#   * [第 2 课, jupyter笔记本下载](./lesson_02_SRK.ipynb)
+# * [第 3 课, SRK-II公式](./lesson_03_SRKII.html)
+#   * [第 3 课, jupyter笔记本下载](./lesson_03_SRKII.ipynb)
+# * [第 4 课, 一千零一个病人](./lesson_04_1001patients.html)
+#   * [第 4 课, jupyter笔记本下载](./lesson_04_1001patients.ipynb)
+# * [第 5 课, save 和 load](./lesson_05_pandas.html)
+#   * [第 5 课, jupyter笔记本下载](./lesson_05_pandas.ipynb)
+# 
+
+# In[ ]:
+
+
+
+

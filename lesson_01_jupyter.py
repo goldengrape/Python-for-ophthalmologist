@@ -144,3 +144,22 @@
 # * 每段代码只做一件小事
 # * 每段代码的正确性都是要"可证明"的
 # 
+
+# # 目录
+# * [第 0 课, 动机](./lesson_00_motivation.html)
+# * [第 1 课, CoCalc](./lesson_01_jupyter.html)
+# * [第 2 课, SRK公式](./lesson_02_SRK.html)
+#   * [第 2 课, jupyter笔记本下载](./lesson_02_SRK.ipynb)
+# * [第 3 课, SRK-II公式](./lesson_03_SRKII.html)
+#   * [第 3 课, jupyter笔记本下载](./lesson_03_SRKII.ipynb)
+# * [第 4 课, 一千零一个病人](./lesson_04_1001patients.html)
+#   * [第 4 课, jupyter笔记本下载](./lesson_04_1001patients.ipynb)
+# * [第 5 课, save 和 load](./lesson_05_pandas.html)
+#   * [第 5 课, jupyter笔记本下载](./lesson_05_pandas.ipynb)
+# 
+
+# In[ ]:
+
+
+
+

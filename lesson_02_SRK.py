@@ -167,3 +167,22 @@ print( SRK (119.0, 40, 42, 24.5) )
 # * 在python 3中, 100/7=14.285714285714286
 # 
 # 我个人认为python 3用起来舒服一些, 至少100/7=14.285714285714286, 但还有可能有许多遗留的工具包是基于python 2的, 在安装和使用前一定要仔细看清楚. 
+
+# # 目录
+# * [第 0 课, 动机](./lesson_00_motivation.html)
+# * [第 1 课, CoCalc](./lesson_01_jupyter.html)
+# * [第 2 课, SRK公式](./lesson_02_SRK.html)
+#   * [第 2 课, jupyter笔记本下载](./lesson_02_SRK.ipynb)
+# * [第 3 课, SRK-II公式](./lesson_03_SRKII.html)
+#   * [第 3 课, jupyter笔记本下载](./lesson_03_SRKII.ipynb)
+# * [第 4 课, 一千零一个病人](./lesson_04_1001patients.html)
+#   * [第 4 课, jupyter笔记本下载](./lesson_04_1001patients.ipynb)
+# * [第 5 课, save 和 load](./lesson_05_pandas.html)
+#   * [第 5 课, jupyter笔记本下载](./lesson_05_pandas.ipynb)
+# 
+
+# In[ ]:
+
+
+
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>lesson_03_SRKII</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>IOLfomular</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11775,7 +11775,180 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#26465;&#20214;&#21028;&#26029;">&#26465;&#20214;&#21028;&#26029;<a class="anchor-link" href="#&#26465;&#20214;&#21028;&#26029;">&#182;</a></h1><p>来看SRK-II公式, 这个公式中经过修正的A常数A1, 是和眼轴长L有关的.</p>
+<h1 id="IOL-&#20844;&#24335;&#38598;">IOL &#20844;&#24335;&#38598;<a class="anchor-link" href="#IOL-&#20844;&#24335;&#38598;">&#182;</a></h1><p>这里我尽量把现有的IOL计算公式都用python写出来, 由于我使用了jupyter的同步存储插件, 所以所有的代码也会同步保存为IOLfomular.py, 因此可以很方便在其他的python程序中以import IOLfomular的方式进行调用.</p>
+<p>这些计算公式的函数可能有多个版本, 以适应对单一病人数据求解的情况和对批量病人数据求解的情况.</p>
+<p>大多数运算使用numpy会更加简单和迅速, 所以要首先</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 生成标准测试集</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">IOL_A_Const</span><span class="o">=</span><span class="p">{</span>
+    <span class="c1"># 大概需要用个JSON文件存一下, 数据太多了</span>
+    <span class="s1">&#39;AcrySof IQ&#39;</span><span class="p">:</span> <span class="mf">118.7</span><span class="p">,</span>
+    <span class="s1">&#39;AcrySof IQ Toric&#39;</span><span class="p">:</span> <span class="mf">119.0</span><span class="p">,</span>
+    <span class="s1">&#39;PCB00&#39;</span><span class="p">:</span> <span class="mf">118.8</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">testdata</span><span class="p">(</span><span class="n">patinets_num</span><span class="p">):</span>
+    <span class="n">possibleA</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">IOL_A_Const</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">possibleA</span><span class="p">,</span><span class="n">patinets_num</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">patinets_num</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">K1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">patinets_num</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">40</span>
+    <span class="n">K2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">patinets_num</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">40</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">patinets_num</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">23</span>
+    <span class="n">patient_data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span>
+        <span class="s1">&#39;K1&#39;</span><span class="p">:</span> <span class="n">K1</span><span class="p">,</span>
+        <span class="s1">&#39;K2&#39;</span><span class="p">:</span> <span class="n">K2</span><span class="p">,</span>
+        <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="n">L</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">patient_data</span>
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">testdata</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[116]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 24.8247586 ],
+       [ 24.78996622],
+       [ 25.35093274],
+       [ 24.50007889]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="SRK">SRK<a class="anchor-link" href="#SRK">&#182;</a></h1>$$
+P= A - 0.9 \times K -2.5 \times L
+$$<p>其中A是</p>
+<ul>
+<li>A常数, </li>
+<li>K是平均角膜曲率, $ K=\frac{K_1+K_2}{2} $</li>
+<li>L是眼轴长</li>
+</ul>
+<p>SRK 公式比较简单, 并没有复杂的判断过程. 可以同时适用于单一病人和批量病人的求解</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">K1</span><span class="p">,</span> <span class="n">K2</span><span class="p">,</span><span class="n">L</span><span class="p">):</span>
+    <span class="n">K</span><span class="o">=</span><span class="p">(</span><span class="n">K1</span><span class="o">+</span><span class="n">K2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">P</span><span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">L</span>
+    <span class="k">return</span> <span class="n">P</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">pNum</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pNum</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">testdata</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">SRK</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K1&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K2&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span>
+           <span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 17.32520995]]
+[[ 18.14056905]
+ [ 21.30276204]
+ [ 19.98762072]
+ [ 24.69195849]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="SRK-II">SRK-II<a class="anchor-link" href="#SRK-II">&#182;</a></h1><p>SRK-II公式, 这个公式中经过修正的A常数A1, 是和眼轴长L有关的.</p>
 <ul>
 <li>当 L&lt; 20.0 时, A1= A+3</li>
 <li>当 20.0&lt;= L &lt; 21.0 时, A1= A+2</li>
@@ -11783,45 +11956,36 @@ div#notebook {
 <li>当 22.0&lt;= L &lt; 24.5 时, A1= A</li>
 <li>当 L &gt; 24.5.0 时, A1= A-0.5</li>
 </ul>
-<p>这是一个分段函数, 需要判断条件, 才能决定另一个参数. 遇到这种情况就需要使用if语句了.</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="err">条件</span><span class="mi">1</span><span class="err">为真</span> <span class="p">:</span>
-    <span class="err">执行这一段代码</span>
-<span class="k">elif</span> <span class="err">条件</span><span class="mi">2</span><span class="err">为真</span> <span class="p">:</span>
-    <span class="err">执行这一段代码</span>
-<span class="k">else</span> <span class="p">:</span> 
-    <span class="err">以上条件都不满足</span><span class="p">,</span> <span class="err">执行这一段代码</span>
-</pre></div>
-<p>不知道有人注意过没有, 在医学公式里, 存在条件判断是常态. 而在物理学里面, 特别是描述世界本质的理论物理, 据我所知并没有一个是带有if语句的公式. 真是奇怪的世界.</p>
+$$
+P= A1 - 0.9 \times K -2.5 \times L
+$$<p>为了支持多个病人的数据以向量的方式输入, 就不能简单使用if来做判断.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[105]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK_2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K_1</span><span class="p">,</span><span class="n">K_2</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">L</span> <span class="o">&lt;</span> <span class="mf">20.0</span> <span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span><span class="o">+</span><span class="mi">3</span>
-    <span class="k">elif</span> <span class="n">L</span> <span class="o">&lt;</span> <span class="mf">21.0</span> <span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span><span class="o">+</span><span class="mi">2</span>
-    <span class="k">elif</span> <span class="n">L</span> <span class="o">&lt;</span> <span class="mf">22.0</span> <span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">L</span> <span class="o">==</span> <span class="mf">22.0</span><span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span>
-    <span class="k">elif</span> <span class="n">L</span> <span class="o">&gt;</span> <span class="mf">22.0</span> <span class="ow">and</span> <span class="n">L</span> <span class="o">&lt;</span> <span class="mf">24.5</span> <span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span>
-    <span class="k">elif</span> <span class="n">L</span> <span class="o">&gt;=</span> <span class="mf">24.5</span><span class="p">:</span>
-        <span class="n">A1</span><span class="o">=</span><span class="n">A</span><span class="o">-</span><span class="mf">0.5</span>
-    
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Lmin</span><span class="p">,</span><span class="n">Lmax</span><span class="p">,</span><span class="n">deltaA</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
+        <span class="k">assert</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="o">==</span><span class="n">L</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">pickout</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">L</span><span class="o">&gt;</span><span class="n">Lmin</span><span class="p">,</span> <span class="n">L</span><span class="o">&lt;=</span><span class="n">Lmax</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">pickout</span><span class="p">]</span> <span class="o">+=</span> <span class="n">deltaA</span>
+    <span class="k">return</span> <span class="n">A</span>
+<span class="k">def</span> <span class="nf">SRK_2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K_1</span><span class="p">,</span><span class="n">K_2</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># 避免pandas修改原始数据, 还有更好的方案么? </span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">20</span><span class="p">,</span>    <span class="mi">3</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span>    <span class="mi">21</span><span class="p">,</span>    <span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span>    <span class="mi">22</span><span class="p">,</span>    <span class="mi">1</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span>    <span class="mf">24.5</span><span class="p">,</span>  <span class="mi">0</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mf">24.5</span><span class="p">,</span>  <span class="mi">50</span><span class="p">,</span>    <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+
     <span class="n">K</span> <span class="o">=</span> <span class="p">(</span><span class="n">K_1</span><span class="o">+</span><span class="n">K_2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">P_emme</span><span class="o">=</span> <span class="n">A1</span><span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span><span class="mf">2.5</span><span class="o">*</span><span class="n">L</span>
-    
-    <span class="k">if</span> <span class="n">P_emme</span> <span class="o">&lt;</span> <span class="mi">14</span><span class="p">:</span>
-        <span class="n">CR</span> <span class="o">=</span> <span class="mf">1.00</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">CR</span> <span class="o">=</span> <span class="mf">1.25</span>
+    <span class="n">P_emme</span><span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span><span class="mf">2.5</span><span class="o">*</span><span class="n">L</span>
+    <span class="n">CR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">P_emme</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">CR</span><span class="p">[</span> <span class="n">P_emme</span><span class="o">&gt;=</span><span class="mi">14</span> <span class="p">]</span><span class="o">=</span><span class="mf">1.25</span>
         
     <span class="n">P_ammc</span><span class="o">=</span><span class="n">P_emme</span><span class="o">-</span><span class="n">REF</span><span class="o">*</span><span class="n">CR</span>
     <span class="k">return</span> <span class="n">P_ammc</span>
@@ -11834,10 +11998,18 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">SRK_2</span><span class="p">(</span><span class="mf">118.4</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">22.2</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">pNum</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pNum</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">testdata</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">SRK_2</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K1&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K2&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span>
+           <span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11854,7 +12026,11 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>26.0
+<pre>[[ 21.96653601]]
+[[ 19.10168684]
+ [ 21.79621343]
+ [ 24.80012004]
+ [ 18.69449888]]
 </pre>
 </div>
 </div>
@@ -11867,74 +12043,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>注意一些if的使用细节:</p>
-<ul>
-<li>每个if/ elif/ else后面都要有冒号: </li>
-<li>每个代码块要注意有相同的缩进</li>
-<li>python用两个等号==表示等于</li>
-<li>如果需要判断多个逻辑关系, 可以用and 或者 or 来将各个判断条件联系起来. 医学文献里经常出现的and/or是非常错误的写法. </li>
-</ul>
-<p>在上面的函数定义中, 除了用到了if elif else以外, 还有一个小细节:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">SRK_2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K_1</span><span class="p">,</span><span class="n">K_2</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-</pre></div>
-<p>其中REF=0的含义是, 这个REF参数有缺省值=0, 如果在调用函数的时候没有写它, 这个参数就等于缺省值.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;术后预留-3D: &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">SRK_2</span><span class="p">(</span><span class="mf">118.4</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">22.2</span><span class="p">,</span> <span class="n">REF</span><span class="o">=-</span><span class="mf">3.00</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">SRK_2</span><span class="p">(</span><span class="mf">118.4</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">22.2</span><span class="p">,</span><span class="o">-</span><span class="mf">3.00</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;术后保留正视眼: &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">SRK_2</span><span class="p">(</span><span class="mf">118.4</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span><span class="mf">22.2</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>术后预留-3D: 
-29.75
-29.75
-术后保留正视眼: 
-26.0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#32451;&#20064;">&#32451;&#20064;<a class="anchor-link" href="#&#32451;&#20064;">&#182;</a></h1><p>干脆把几个IOL公式都写了吧:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="SRK-T">SRK-T<a class="anchor-link" href="#SRK-T">&#182;</a></h2><ul>
+<h1 id="SRK-T">SRK-T<a class="anchor-link" href="#SRK-T">&#182;</a></h1><ul>
 <li><p>正视眼: 
 P_emme = ( 1000 <em> na </em> X ) / ((L1-C1) * Y)</p>
 </li>
@@ -11992,25 +12101,60 @@ P_amet = ( 1000 <em> na </em> (X-0.001<em>REF</em>(V<em>X+L1</em>r) ))/((L1-C1)<
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[158]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#23548;&#20837;&#25968;&#23398;&#24211;">&#23548;&#20837;&#25968;&#23398;&#24211;<a class="anchor-link" href="#&#23548;&#20837;&#25968;&#23398;&#24211;">&#182;</a></h2>$$ H=r-\sqrt{r^2-W^2/4} $$<p>需要注意的是, 在计算H的时候, 用到了平方和开方.</p>
-<p>平方用两个 * 号表示: $r^2==r**2 $</p>
-<p>python的标准库里是没有开方运算的. 需要导入一个数学库numpy, 今后我们会经常使用numpy</p>
-<p>比如计算 $ \sqrt{2} $</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK_T</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K1</span><span class="p">,</span><span class="n">K2</span><span class="p">,</span><span class="n">L</span><span class="p">,</span> <span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> 
+    <span class="n">V</span><span class="o">=</span><span class="mi">12</span>
+    <span class="n">na</span><span class="o">=</span><span class="mf">1.336</span>
+    <span class="n">nc</span><span class="o">=</span><span class="mf">1.333</span>
+    <span class="n">K</span><span class="o">=</span><span class="p">(</span><span class="n">K1</span><span class="o">+</span><span class="n">K2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mf">337.5</span><span class="o">/</span><span class="n">K</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+    <span class="n">LC</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    
+    <span class="n">mLlist</span><span class="o">=</span><span class="n">L</span><span class="o">&gt;</span><span class="mf">24.2</span>
+    <span class="n">LC</span><span class="p">[</span><span class="n">mLlist</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.446</span><span class="o">+</span><span class="mf">1.716</span><span class="o">*</span><span class="n">L</span><span class="p">[</span><span class="n">mLlist</span><span class="p">]</span><span class="o">-</span><span class="mf">0.0237</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">mLlist</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">W</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.41</span><span class="o">+</span><span class="mf">0.58412</span><span class="o">*</span><span class="n">LC</span> <span class="o">+</span> <span class="mf">0.098</span><span class="o">*</span><span class="n">K</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+
+    <span class="n">H</span> <span class="o">=</span> <span class="n">r</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="p">(</span><span class="n">W</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">Ofst</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.62467</span><span class="o">*</span><span class="n">A</span><span class="o">-</span><span class="mf">68.747</span><span class="p">)</span><span class="o">-</span><span class="mf">3.336</span>
+    <span class="n">C1</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">Ofst</span>
+    <span class="n">L1</span> <span class="o">=</span> <span class="n">L</span><span class="o">+</span><span class="p">(</span><span class="mf">0.65696</span><span class="o">-</span> <span class="mf">0.02029</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">na</span><span class="o">*</span><span class="n">r</span><span class="o">-</span><span class="n">L1</span><span class="o">*</span><span class="p">(</span><span class="n">nc</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">na</span><span class="o">*</span><span class="n">r</span> <span class="o">-</span> <span class="n">C1</span><span class="o">*</span><span class="p">(</span><span class="n">nc</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">P_emme</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1000</span><span class="o">*</span><span class="n">na</span><span class="o">*</span><span class="n">X</span> <span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">L1</span><span class="o">-</span><span class="n">C1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">P_amet</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1000</span><span class="o">*</span><span class="n">na</span><span class="o">*</span><span class="p">(</span><span class="n">X</span><span class="o">-</span><span class="mf">0.001</span><span class="o">*</span><span class="n">REF</span><span class="o">*</span><span class="p">(</span><span class="n">V</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="n">L1</span><span class="o">*</span><span class="n">r</span><span class="p">)</span> <span class="p">))</span> <span class="o">/</span> <span class="p">((</span><span class="n">L1</span><span class="o">-</span><span class="n">C1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="mf">0.001</span><span class="o">*</span><span class="n">REF</span><span class="o">*</span><span class="p">(</span><span class="n">V</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="n">C1</span><span class="o">*</span><span class="n">r</span><span class="p">)))</span>   
+
+    <span class="c1"># 此行以上填写</span>
+    <span class="k">return</span> <span class="n">P_amet</span>
+</pre></div>
 
 </div>
 </div>
 </div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[159]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="n">pNum</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pNum</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">testdata</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">SRK_T</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K1&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;K2&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span>
+           <span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12023,97 +12167,27 @@ P_amet = ( 1000 <em> na </em> (X-0.001<em>REF</em>(V<em>X+L1</em>r) ))/((L1-C1)<
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1.4142135623730951</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</pre></div>
-<p>这句话的意思是, 导入numpy这个数学库, 并且把它简称为np, 虽然也可以简称为其他, 但大家习惯上还是使用np.</p>
-<p>导入了数学库以后, 要调用数学库中的运算, 就用np.XXX( ), 比如开方:  np.sqrt(2)</p>
-<p>通常来说导入外部库的import语句放在程序的最开头. 不过反正在调用之前都可以, 而且只要import一次就好了.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK_T</span><span class="p">(</span> <span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> <span class="c1"># 参数表会有不少哦, 自己看着填吧</span>
-    <span class="n">V</span><span class="o">=</span><span class="mi">12</span>
-    <span class="n">na</span><span class="o">=</span><span class="mf">1.336</span>
-    <span class="n">nc</span><span class="o">=</span><span class="mf">1.333</span>
-    <span class="n">K</span><span class="o">=</span><span class="p">(</span><span class="n">K1</span><span class="o">+</span><span class="n">K2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="mf">337.5</span><span class="o">/</span><span class="n">K</span>
-    <span class="c1"># 此行以下填写</span>
-    <span class="k">if</span> <span class="n">L</span><span class="o">&lt;=</span><span class="mf">24.2</span><span class="p">:</span> 
-        <span class="n">LC</span><span class="o">=</span><span class="kc">None</span>
-    <span class="k">elif</span> <span class="n">L</span><span class="o">&gt;</span><span class="mf">24.2</span><span class="p">:</span> 
-        <span class="n">LC</span><span class="o">=</span><span class="kc">None</span>
-    
-    <span class="n">W</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">r</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="p">(</span><span class="n">W</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">Ofst</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">C1</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">L1</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">Y</span> <span class="o">=</span> <span class="kc">None</span>
-    
-    <span class="n">P_amet</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="c1"># 此行以上填写</span>
-    <span class="k">return</span> <span class="n">P_amet</span>
-</pre></div>
-
-</div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+W
+[[ 12.64697535]]
+[[ 21.89160901]]
+2
+W
+[[ 12.12579722]
+ [ 12.4315146 ]]
+[[ 24.93438823]
+ [ 23.70374132]]
+</pre>
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#30446;&#24405;">&#30446;&#24405;<a class="anchor-link" href="#&#30446;&#24405;">&#182;</a></h1><ul>
-<li><a href="./lesson_00_motivation.html">第 0 课, 动机</a></li>
-<li><a href="./lesson_01_jupyter.html">第 1 课, CoCalc</a></li>
-<li><a href="./lesson_02_SRK.html">第 2 课, SRK公式</a><ul>
-<li><a href="./lesson_02_SRK.ipynb">第 2 课, jupyter笔记本下载</a></li>
-</ul>
-</li>
-<li><a href="./lesson_03_SRKII.html">第 3 课, SRK-II公式</a><ul>
-<li><a href="./lesson_03_SRKII.ipynb">第 3 课, jupyter笔记本下载</a></li>
-</ul>
-</li>
-<li><a href="./lesson_04_1001patients.html">第 4 课, 一千零一个病人</a><ul>
-<li><a href="./lesson_04_1001patients.ipynb">第 4 课, jupyter笔记本下载</a></li>
-</ul>
-</li>
-<li><a href="./lesson_05_pandas.html">第 5 课, save 和 load</a><ul>
-<li><a href="./lesson_05_pandas.ipynb">第 5 课, jupyter笔记本下载</a></li>
-</ul>
-</li>
-</ul>
 
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
