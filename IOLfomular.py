@@ -161,7 +161,7 @@ if __name__ == "__main__" :
 #     * W= -5.41+0.58412 * LC + 0.098 * K
 #   * LC 修正眼轴长
 #     * if L<=24.2: LC=L
-#     * if L>24.2:  LC=-3.446+1.176*L-0.237*(L**2)
+#     * if L>24.2:  LC=-3.446+1.716*L-0.0237*(L**2)
 #   * C1 估计术后前房深度
 #     * C1=H + Ofst
 #   * Ofst Calculated distance between  the iris sufrace and IOL optical surface including corneal thickness(mm)
