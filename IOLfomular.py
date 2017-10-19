@@ -9,42 +9,46 @@
 # 
 # 大多数运算使用numpy会更加简单和迅速, 所以要首先
 
-# In[27]:
+# In[1]:
 
 
 import numpy as np
 
 
-# In[101]:
+# In[2]:
 
 
 # 生成标准测试集
 if __name__ == "__main__" :
     np.random.seed(0)
-IOL_A_Const={
+
+
+def testdata(patinets_num):
+    IOL_A_Const={
     # 大概需要用个JSON文件存一下, 数据太多了
     'AcrySof IQ': 118.7,
     'AcrySof IQ Toric': 119.0,
-    'PCB00': 118.8
-}
-
-def testdata(patinets_num):
+    'PCB00': 118.8,
+    'AR40e': 118.4
+    }
     possibleA=list(IOL_A_Const.values())
     A=np.random.choice(possibleA,patinets_num,1).reshape(patinets_num,1)
-    K1=np.random.rand(patinets_num,1)*2+40
-    K2=np.random.rand(patinets_num,1)*2+40
+    K1=np.random.randn(patinets_num,1)*2+41
+    K2=np.random.randn(patinets_num,1)*2+41
     L=np.random.rand(patinets_num,1)*3+23
+    REF=np.random.choice([0,-0.5,-3,-2.75,-3.25],patinets_num,1).reshape(patinets_num,1)
     patient_data={
         'A': A,
         'K1': K1,
         'K2': K2,
-        'L': L
+        'L': L,
+        'REF':REF
     }
     return patient_data
     
 
 
-# In[116]:
+# In[3]:
 
 
 data=testdata(4)
@@ -63,7 +67,7 @@ data['L']
 # 
 # SRK 公式比较简单, 并没有复杂的判断过程. 可以同时适用于单一病人和批量病人的求解
 
-# In[103]:
+# In[4]:
 
 
 def SRK(A, K1, K2,L):
@@ -72,7 +76,7 @@ def SRK(A, K1, K2,L):
     return P
 
 
-# In[104]:
+# In[5]:
 
 
 if __name__ == "__main__" :
@@ -102,7 +106,7 @@ if __name__ == "__main__" :
 # 
 # 为了支持多个病人的数据以向量的方式输入, 就不能简单使用if来做判断. 
 
-# In[105]:
+# In[6]:
 
 
 def on_1st_change_2nd(L,A,Lmin,Lmax,deltaA):
@@ -128,7 +132,7 @@ def SRK_2(A,K_1,K_2,L,REF=0):
     return P_ammc
 
 
-# In[106]:
+# In[7]:
 
 
 if __name__ == "__main__" :
@@ -178,7 +182,7 @@ if __name__ == "__main__" :
 #     
 # 洋人非常喜欢倒叙, 注意在写程序的时候要把叙述的顺序搞清楚. 
 
-# In[158]:
+# In[8]:
 
 
 def SRK_T(A,K1,K2,L, REF=0): 
@@ -193,9 +197,6 @@ def SRK_T(A,K1,K2,L, REF=0):
     LC[mLlist]=-3.446+1.716*L[mLlist]-0.0237*(L[mLlist]**2)
     
     W = -5.41+0.58412*LC + 0.098*K
-    print("W")
-    print(W)
-
     H = r-np.sqrt(r**2-(W**2)/4)
     Ofst = (0.62467*A-68.747)-3.336
     C1 = H + Ofst
@@ -210,7 +211,7 @@ def SRK_T(A,K1,K2,L, REF=0):
     return P_amet
 
 
-# In[159]:
+# In[9]:
 
 
 if __name__ == "__main__" :
