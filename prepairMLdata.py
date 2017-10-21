@@ -42,17 +42,17 @@ def generate_dataset(population):
     REF=np.asarray(preOPdata['REF']) 
     
     P=SRK_2(A,K1,K2,L,REF)
-    P=np.around(P*4)/4
+#     P=np.around(P*4)/4
     Pr=SRK_T(A,K1,K2,L,REF)         
     
-    noise=np.random.randn(population,1)*1
-    ratio=np.random.rand(population,1)*0.1+0.8
+    noise=np.random.randn(population,1)*0.0
+    ratio=np.random.rand(population,1)*0.0+0.8
     R=ratio*(P-Pr)+noise
-    R=np.around(R*4)/4
-    satisfied=np.logical_and(R<0,R>-0.75)
-    loss_to_follow=np.random.rand(population,1)<0.1
-    R[satisfied]=0
-    R[loss_to_follow]=np.nan
+#     R=np.around(R*4)/4
+#     satisfied=np.logical_and(R<0,R>-0.50)
+#     loss_to_follow=np.random.rand(population,1)<0.05
+#     R[satisfied]=0
+#     R[loss_to_follow]=np.nan
     data=np.asarray([preOPdata['A'],
             preOPdata['K1'],
             preOPdata['K2'],
