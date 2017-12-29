@@ -85,6 +85,8 @@
 #   * [第 4 课, jupyter笔记本下载](./lesson_04_1001patients.ipynb)
 # * [第 5 课, save 和 load](./lesson_05_pandas.html)
 #   * [第 5 课, jupyter笔记本下载](./lesson_05_pandas.ipynb)
+# * [第 6 课, 统计分析](./lesson_06_pymc3-bayes.html)
+#   * [第 6 课, jupyter笔记本下载](./lesson_06_pymc3-bayes.ipynb)
 # 
 
 # In[ ]:
