@@ -19,7 +19,7 @@
 # * 还有一部分是随机失访
 # 
 
-# In[4]:
+# In[1]:
 
 
 import pandas as pd
@@ -29,7 +29,7 @@ import os
 from IOLfomular import testdata,SRK_2,SRK_T
 
 
-# In[7]:
+# In[4]:
 
 
 
@@ -46,7 +46,7 @@ def generate_dataset(population):
     Pr=SRK_T(A,K1,K2,L,REF)         
     
     noise=np.random.randn(population,1)*0.0
-    ratio=np.random.rand(population,1)*0.0+0.8
+    ratio=np.random.rand(population,1)*0.0+1.0
     R=ratio*(P-Pr)+noise
 #     R=np.around(R*4)/4
 #     satisfied=np.logical_and(R<0,R>-0.50)
@@ -69,7 +69,7 @@ dataset=generate_dataset(2000)
 
 # # 保存
 
-# In[8]:
+# In[5]:
 
 
 pathname='data'
