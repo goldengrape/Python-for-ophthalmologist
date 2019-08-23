@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>未命名</title>
+<title>IOL_formulas</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13113,6 +13113,386 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="IOL-&#20844;&#24335;&#38598;">IOL &#20844;&#24335;&#38598;<a class="anchor-link" href="#IOL-&#20844;&#24335;&#38598;">&#182;</a></h1><p>这里我尽量把现有的IOL计算公式都用python写出来, 由于我使用了jupyter的同步存储插件, 所以所有的代码也会同步保存为IOLfomular.py, 因此可以很方便在其他的python程序中以import IOLfomular的方式进行调用.</p>
+<p>这些计算公式的函数可能有多个版本, 以适应对单一病人数据求解的情况和对批量病人数据求解的情况.</p>
+<p>大多数运算使用numpy会更加简单和迅速, 所以要首先</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">K1</span><span class="p">,</span> <span class="n">K2</span><span class="p">,</span><span class="n">L</span><span class="p">):</span>
+    <span class="n">K</span><span class="o">=</span><span class="p">(</span><span class="n">K1</span><span class="o">+</span><span class="n">K2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">P</span><span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">L</span>
+    <span class="k">return</span> <span class="n">P</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Lmin</span><span class="p">,</span><span class="n">Lmax</span><span class="p">,</span><span class="n">deltaA</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">L</span><span class="p">)):</span>
+        <span class="k">assert</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="o">==</span><span class="n">L</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">pickout</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">L</span><span class="o">&gt;</span><span class="n">Lmin</span><span class="p">,</span> <span class="n">L</span><span class="o">&lt;=</span><span class="n">Lmax</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">pickout</span><span class="p">]</span> <span class="o">+=</span> <span class="n">deltaA</span>
+    <span class="k">return</span> <span class="n">A</span>
+<span class="k">def</span> <span class="nf">SRK_2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">K_1</span><span class="p">,</span><span class="n">K_2</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">REF</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># 避免pandas修改原始数据, 还有更好的方案么? </span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">20</span><span class="p">,</span>    <span class="mi">3</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span>    <span class="mi">21</span><span class="p">,</span>    <span class="mi">2</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span>    <span class="mi">22</span><span class="p">,</span>    <span class="mi">1</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span>    <span class="mf">24.5</span><span class="p">,</span>  <span class="mi">0</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">on_1st_change_2nd</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="mf">24.5</span><span class="p">,</span>  <span class="mi">50</span><span class="p">,</span>    <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="p">(</span><span class="n">K_1</span><span class="o">+</span><span class="n">K_2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">P_emme</span><span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">K</span> <span class="o">-</span><span class="mf">2.5</span><span class="o">*</span><span class="n">L</span>
+    <span class="n">CR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">P_emme</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">CR</span><span class="p">[</span> <span class="n">P_emme</span><span class="o">&gt;=</span><span class="mi">14</span> <span class="p">]</span><span class="o">=</span><span class="mf">1.25</span>
+        
+    <span class="n">P_ammc</span><span class="o">=</span><span class="n">P_emme</span><span class="o">-</span><span class="n">REF</span><span class="o">*</span><span class="n">CR</span>
+    <span class="k">return</span> <span class="n">P_ammc</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Double_K_SRK_T</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Kpre</span><span class="p">,</span> <span class="n">Kpost</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span><span class="n">REFt</span> <span class="p">):</span>
+<span class="c1">#   Correction Axial Length: Lcor</span>
+    <span class="n">Lcor</span> <span class="o">=</span> <span class="n">AL</span> <span class="k">if</span> <span class="n">AL</span><span class="o">&lt;=</span><span class="mf">24.2</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mf">3.446</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.716</span> <span class="o">*</span> <span class="n">AL</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.0237</span> <span class="o">*</span> <span class="n">AL</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">#   Corneal curvatures, 2 Keratometry values are used:  </span>
+<span class="c1">#   Pre corneal refractive surgery:</span>
+    <span class="n">Rpre</span> <span class="o">=</span> <span class="mf">337.5</span> <span class="o">/</span> <span class="n">Kpre</span> 
+    <span class="c1"># Kpre = 337.5 / Rpre</span>
+<span class="c1">#   Post corneal refractive surgery:  </span>
+    <span class="n">Rpost</span> <span class="o">=</span> <span class="mf">337.5</span> <span class="o">/</span> <span class="n">Kpost</span>   
+    <span class="c1"># Kpost = 337.5 / Rpost</span>
+<span class="c1">#   Calculations with Kpre or Rpre:  </span>
+<span class="c1">#   Computed corneal width: CW    </span>
+    <span class="n">CW</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.40948</span> <span class="o">+</span> <span class="mf">0.58412</span> <span class="o">*</span> <span class="n">Lcor</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">Kpre</span>
+<span class="c1">#   Corneal Height: H </span>
+    <span class="n">Rc</span> <span class="o">=</span> <span class="p">(</span><span class="n">Rpre</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">CW</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="n">Rc</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">Rc</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">Rc</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">Rpre</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Rc</span><span class="p">)</span>
+<span class="c1">#   Anterior Chamber Depth Constant: ACDconst  </span>
+    <span class="n">ACDconst</span> <span class="o">=</span> <span class="mf">0.62467</span> <span class="o">*</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">68.74709</span>
+<span class="c1">#   Estimated Post-operatice ACD: ACDest   </span>
+    <span class="n">Offset</span> <span class="o">=</span> <span class="n">ACDconst</span> <span class="o">-</span> <span class="mf">3.3357</span>
+    <span class="n">ACDest</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">Offset</span>
+<span class="c1">#   Constants: </span>
+    <span class="n">na</span> <span class="o">=</span> <span class="mf">1.336</span><span class="p">;</span> <span class="n">V</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span> <span class="n">nc</span> <span class="o">=</span> <span class="mf">1.333</span><span class="p">;</span> <span class="n">C2</span> <span class="o">=</span> <span class="n">nc</span> <span class="o">-</span>  <span class="mi">1</span>
+<span class="c1">#   Retinal thickness:  </span>
+    <span class="n">Rethick</span> <span class="o">=</span> <span class="mf">0.65696</span> <span class="o">-</span> <span class="mf">0.02029</span> <span class="o">*</span> <span class="n">AL</span>
+<span class="c1">#   Optical Axial Length: </span>
+    <span class="n">L0PT</span> <span class="o">=</span> <span class="n">AL</span> <span class="o">+</span> <span class="n">Rethick</span>   
+<span class="c1">#   Calculations with Kpost or Rpost: </span>
+    <span class="n">S1</span> <span class="o">=</span> <span class="n">L0PT</span> <span class="o">-</span> <span class="n">ACDest</span> 
+    <span class="n">S2</span> <span class="o">=</span> <span class="n">na</span> <span class="o">*</span> <span class="n">Rpost</span> <span class="o">-</span> <span class="n">C2</span> <span class="o">*</span> <span class="n">ACDest</span> 
+    <span class="n">S3</span> <span class="o">=</span> <span class="n">na</span> <span class="o">*</span> <span class="n">Rpost</span> <span class="o">-</span> <span class="n">C2</span> <span class="o">*</span> <span class="n">L0PT</span>  
+    <span class="n">S4</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">S3</span> <span class="o">+</span> <span class="n">L0PT</span> <span class="o">*</span> <span class="n">Rpost</span> 
+    <span class="n">S5</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">ACDest</span> <span class="o">*</span> <span class="n">Rpost</span>
+    
+    <span class="n">IOL_emme</span><span class="o">=</span> <span class="mi">1336</span> <span class="o">*</span> <span class="n">S3</span> <span class="o">/</span> <span class="p">(</span><span class="n">S1</span><span class="o">*</span><span class="n">S2</span><span class="p">)</span>
+<span class="c1">#     REF_X=(1336* S3- IOL* S1* S2)/(1.336*S4-0.001*IOL*S1*S5)</span>
+    <span class="n">IOL_for_tgt</span><span class="o">=</span><span class="p">(</span><span class="mi">1336</span><span class="o">*</span> <span class="p">(</span><span class="n">S3</span><span class="o">-</span><span class="mf">0.001</span><span class="o">*</span><span class="n">REFt</span><span class="o">*</span><span class="n">S4</span><span class="p">))</span><span class="o">/</span> \
+                <span class="p">(</span><span class="n">S1</span><span class="o">*</span><span class="p">(</span><span class="n">S2</span><span class="o">-</span><span class="mf">0.001</span><span class="o">*</span><span class="n">REFt</span><span class="o">*</span><span class="n">S5</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">IOL_for_tgt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK_T_Rc</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Kd</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">REFt</span><span class="p">):</span>
+    <span class="c1">#  Retinal thickness: </span>
+    <span class="n">Rethick</span> <span class="o">=</span> <span class="mf">0.65696</span> <span class="o">-</span> <span class="mf">0.02029</span> <span class="o">*</span> <span class="n">AL</span>
+    <span class="n">Lc</span> <span class="o">=</span> <span class="n">AL</span> <span class="k">if</span> <span class="p">(</span><span class="n">AL</span> <span class="o">&lt;=</span> <span class="mf">24.2</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mf">3.446</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.716</span> <span class="o">*</span> <span class="n">AL</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.0237</span> <span class="o">*</span> <span class="n">AL</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1">#     Kd = 337.5 / Rmm </span>
+    <span class="n">Rmm</span> <span class="o">=</span> <span class="mf">337.5</span> <span class="o">/</span> <span class="n">Kd</span>
+    <span class="n">C1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.40948</span> <span class="o">+</span> <span class="mf">0.58412</span> <span class="o">*</span> <span class="n">Lc</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">Kd</span>
+    <span class="n">Rc</span> <span class="o">=</span> <span class="n">Rmm</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">C1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> 
+    <span class="k">return</span> <span class="n">Rc</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">SRK_T</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span><span class="n">Kd</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">REFt</span><span class="p">):</span>
+<span class="c1">#     Retinal thickness: </span>
+    <span class="n">Rethick</span> <span class="o">=</span> <span class="mf">0.65696</span> <span class="o">-</span> <span class="mf">0.02029</span> <span class="o">*</span> <span class="n">AL</span>
+    <span class="n">Lc</span> <span class="o">=</span> <span class="n">AL</span> <span class="k">if</span> <span class="p">(</span><span class="n">AL</span> <span class="o">&lt;=</span> <span class="mf">24.2</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mf">3.446</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.716</span> <span class="o">*</span> <span class="n">AL</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.0237</span> <span class="o">*</span> <span class="n">AL</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1">#     Kd = 337.5 / Rmm </span>
+    <span class="n">Rmm</span> <span class="o">=</span> <span class="mf">337.5</span> <span class="o">/</span> <span class="n">Kd</span>
+    <span class="n">C1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.40948</span> <span class="o">+</span> <span class="mf">0.58412</span> <span class="o">*</span> <span class="n">Lc</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">Kd</span>
+    <span class="n">Rc</span> <span class="o">=</span> <span class="n">Rmm</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">C1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> 
+    <span class="n">Rc</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">SRK_T_Rc</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Kd</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">REFt</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">Rc</span>
+    <span class="n">C2</span> <span class="o">=</span> <span class="n">Rmm</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Rc</span><span class="p">)</span>
+    <span class="n">ACD</span> <span class="o">=</span> <span class="mf">0.62467</span> <span class="o">*</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">68.74709</span>
+    <span class="n">ACDE</span> <span class="o">=</span> <span class="n">C2</span> <span class="o">+</span> <span class="n">ACD</span> <span class="o">-</span> <span class="mf">3.3357</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="mf">1.336</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="mf">0.333</span>
+    <span class="n">L0</span> <span class="o">=</span> <span class="n">AL</span> <span class="o">+</span> <span class="n">Rethick</span>
+    <span class="n">S1</span> <span class="o">=</span> <span class="n">L0</span> <span class="o">-</span> <span class="n">ACDE</span>     
+    <span class="n">S2</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">*</span> <span class="n">Rmm</span> <span class="o">-</span> <span class="n">n2</span> <span class="o">*</span> <span class="n">ACDE</span>  
+    <span class="n">S3</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">*</span> <span class="n">Rmm</span> <span class="o">-</span> <span class="n">n2</span> <span class="o">*</span> <span class="n">L0</span>   
+    <span class="n">S4</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">S3</span> <span class="o">+</span> <span class="n">L0</span> <span class="o">*</span> <span class="n">Rmm</span>  
+    <span class="n">S5</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">ACDE</span> <span class="o">*</span> <span class="n">Rmm</span>
+<span class="c1">#     REF_X = (1336 * S3 −  IOL * S1 * S2)/ \</span>
+<span class="c1">#             (1.336 * S4 −  0.001 * IOL * S1 * S5)</span>
+    <span class="n">IOL_FOR_TGT</span> <span class="o">=</span><span class="p">(</span><span class="mi">1336</span> <span class="o">*</span> <span class="p">(</span><span class="n">S3</span> <span class="o">-</span>  <span class="mf">0.001</span> <span class="o">*</span> <span class="n">REFt</span> <span class="o">*</span> <span class="n">S4</span><span class="p">))</span><span class="o">/</span>\
+                  <span class="p">(</span><span class="n">S1</span> <span class="o">*</span> <span class="p">(</span><span class="n">S2</span> <span class="o">-</span>  <span class="mf">0.001</span> <span class="o">*</span> <span class="n">REFt</span> <span class="o">*</span> <span class="n">S5</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">IOL_FOR_TGT</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">HOFFER_Q</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">ACD</span><span class="p">,</span> <span class="n">Rx</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">tan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">#     CORRECTED CHAMBER DEPTH</span>
+    <span class="k">if</span> <span class="n">AL</span><span class="o">&lt;=</span><span class="mi">23</span><span class="p">:</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">G</span> <span class="o">=</span> <span class="mi">28</span> 
+    <span class="k">elif</span> <span class="n">AL</span> <span class="o">&gt;</span> <span class="mi">23</span><span class="p">:</span>
+        <span class="n">M</span> <span class="o">=-</span><span class="mi">1</span><span class="p">;</span>  <span class="n">G</span><span class="o">=</span><span class="mf">23.5</span>
+    <span class="k">if</span> <span class="n">AL</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">:</span>
+        <span class="n">AL</span> <span class="o">=</span> <span class="mi">31</span> 
+    <span class="k">elif</span> <span class="n">AL</span> <span class="o">&lt;</span> <span class="mf">18.5</span><span class="p">:</span>
+        <span class="n">AL</span> <span class="o">=</span> <span class="mf">18.5</span>
+    
+    <span class="n">CD</span> <span class="o">=</span> <span class="n">ACD</span> <span class="o">+</span> <span class="mf">0.3</span><span class="o">*</span> <span class="p">(</span><span class="n">AL</span> <span class="o">-</span> <span class="mf">23.5</span><span class="p">)</span> 
+    <span class="n">CD</span> <span class="o">+=</span> <span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">K</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">CD</span> <span class="o">+=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">M</span><span class="o">*</span><span class="p">(</span><span class="mf">23.5</span><span class="o">-</span><span class="n">AL</span><span class="p">)</span><span class="o">**</span> <span class="mi">2</span><span class="o">*</span><span class="n">tan</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">G</span> <span class="o">-</span> <span class="n">AL</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.99166</span>
+<span class="c1">#     EMMETROPIA POWER:</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">Rx</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.012</span> <span class="o">*</span> <span class="n">Rx</span><span class="p">)</span>  
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1336</span> <span class="o">/</span> <span class="p">(</span><span class="n">AL</span> <span class="o">-</span> <span class="n">CD</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.336</span> <span class="o">/</span> <span class="p">((</span><span class="mf">1.336</span> <span class="o">/</span> <span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="n">R</span><span class="p">))</span> <span class="o">-</span> <span class="p">((</span><span class="n">CD</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">P</span>
+                                     
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">shammas</span><span class="p">(</span><span class="n">Kpost</span><span class="p">,</span><span class="n">L</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="c1">#     https://sci-hub.tw/10.1016/j.jcrs.2006.08.045</span>
+<span class="c1">#     KERATOMETRY CORRECTION:  </span>
+    <span class="n">KS</span> <span class="o">=</span> <span class="mf">1.14</span> <span class="o">*</span> <span class="n">Kpost</span> <span class="o">-</span> <span class="mf">6.8</span> 
+<span class="c1">#     Where Kpost is the measurement of the Keratometry by classical means.</span>
+    <span class="n">C</span> <span class="o">=</span>  <span class="mf">0.5835</span><span class="o">*</span><span class="n">A</span> <span class="o">-</span> <span class="mf">64.40</span> <span class="c1"># ACD (Shammas) =</span>
+<span class="c1">#     FORMULA TO CALCULATE THE IMPLANT CORRESPONDING TO THE DESIRED REFRACTION (R):</span>
+    <span class="n">K</span><span class="o">=</span><span class="n">KS</span>
+    <span class="n">IOLAm</span> <span class="o">=</span> <span class="mi">1336</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span> <span class="o">-</span>  <span class="mf">0.1</span><span class="o">*</span> <span class="p">(</span><span class="n">L</span> <span class="o">-</span>  <span class="mi">23</span><span class="p">)</span> <span class="o">-</span>  <span class="n">C</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">-</span> \
+            <span class="mi">1</span> <span class="o">/</span><span class="p">(</span> <span class="mf">1.0125</span><span class="o">/</span> <span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="n">R</span><span class="p">)</span> <span class="o">-</span>  <span class="p">(</span><span class="n">C</span> <span class="o">+</span>  <span class="mf">0.05</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1336</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">IOLAm</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Haigis</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">AC</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">Dl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Rx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">a0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">a1</span><span class="o">=</span><span class="mf">0.400</span><span class="p">,</span><span class="n">a2</span><span class="o">=</span><span class="mf">0.100</span><span class="p">):</span>
+<span class="c1">#     IOL power for given refraction Dl:  All calculations are based on the &quot;Thin-lens-formula&quot;:</span>
+<span class="c1">#     Dl  IOL power </span>
+<span class="c1">#     Dc  corneal power </span>
+<span class="c1">#     Rx  desired refraction </span>
+<span class="c1">#     n  refractive index of aequeous and vitreous (=1.366) # here should be 1.336</span>
+<span class="c1">#     Nc  fictitious refractive index of cornea (=1.3315) </span>
+<span class="c1">#     Dx  vertex distance between cornea and spectacles (=12 mm) </span>
+<span class="c1">#     R  corneal radius </span>
+<span class="c1">#     L  axial length (as measured by ultrasound) </span>
+<span class="c1">#     d  optical ACD</span>
+
+<span class="c1">#     AC : preoperative acoustical anterior chamber depth, as measured by ultrasound    </span>
+<span class="c1">#     L: preoperative axial length, as measured by ultrasound</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">a0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)):</span>
+        <span class="n">a0</span><span class="o">=</span><span class="mf">0.62467</span> <span class="o">*</span> <span class="n">A</span> <span class="o">-</span> <span class="mf">72.434</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.241</span>  
+    <span class="n">v</span> <span class="o">=</span> <span class="mf">0.139</span>
+    
+<span class="c1">#     if AC==0:</span>
+<span class="c1">#         d = (a0 + u*a1) + (a2 + v*a1)*L  </span>
+<span class="c1">#     else:</span>
+<span class="c1">#         d = a0 +a1*AC + a2*L</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">+</span><span class="n">a1</span><span class="o">*</span><span class="n">AC</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">L</span>
+    
+    <span class="n">n</span><span class="o">=</span><span class="mf">1.336</span><span class="p">;</span> <span class="n">Nc</span><span class="o">=</span><span class="mf">1.3315</span><span class="p">;</span> 
+    <span class="c1"># convert mm to meter</span>
+    <span class="n">Dx</span><span class="o">=</span><span class="mi">12</span><span class="o">/</span><span class="mi">1000</span><span class="p">;</span>
+    <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="o">/</span><span class="mi">1000</span>
+    <span class="n">AC</span><span class="o">=</span><span class="n">AC</span><span class="o">/</span><span class="mi">1000</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="mi">1000</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">/</span><span class="mi">1000</span>
+    
+    <span class="n">Dc</span><span class="o">=</span><span class="p">(</span><span class="n">Nc</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">Dl</span> <span class="ow">is</span>  <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Rx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>    
+        <span class="n">z</span><span class="o">=</span><span class="n">Dc</span><span class="o">+</span><span class="n">Rx</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Rx</span><span class="o">*</span><span class="n">Dx</span><span class="p">)</span>
+        <span class="n">Dl</span><span class="o">=</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="n">d</span><span class="p">)</span> <span class="o">-</span> <span class="n">n</span><span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">z</span> <span class="o">-</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Dl</span>
+    
+    <span class="c1"># overload Haigis to calc Rx</span>
+    <span class="c1"># as known IOL power</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Dl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Rx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">q</span><span class="o">=</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span> <span class="n">Dl</span><span class="o">*</span> <span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="n">d</span><span class="p">))</span><span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">+</span> <span class="n">d</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">Dl</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="n">d</span><span class="p">)))</span>
+        <span class="n">Rx</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">Dc</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">Dx</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">Dc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Rx</span>
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">Haigis_L</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">AC</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Rx</span><span class="p">,</span> <span class="n">a0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">a1</span><span class="o">=</span><span class="mf">0.400</span><span class="p">,</span><span class="n">a2</span><span class="o">=</span><span class="mf">0.100</span><span class="p">):</span>
+    <span class="n">R_corr</span><span class="o">=</span><span class="mf">331.5</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mf">5.1625</span><span class="o">*</span><span class="n">R</span><span class="o">+</span><span class="mf">82.2603</span><span class="o">-</span><span class="mf">0.35</span><span class="p">)</span>
+<span class="c1">#     return Haigis(R_corr,AC,L,A,Rx,a0,a1,a2)</span>
+    <span class="k">return</span> <span class="n">Haigis</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="n">R_corr</span><span class="p">,</span><span class="n">AC</span><span class="o">=</span><span class="n">AC</span><span class="p">,</span><span class="n">L</span><span class="o">=</span><span class="n">L</span><span class="p">,</span><span class="n">Dl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Rx</span><span class="o">=</span><span class="n">Rx</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">a0</span><span class="o">=</span><span class="n">a0</span><span class="p">,</span><span class="n">a1</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span><span class="n">a2</span><span class="o">=</span><span class="n">a2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">BESST</span><span class="p">(</span><span class="n">rF</span><span class="p">,</span><span class="n">rB</span><span class="p">,</span><span class="n">CCT</span><span class="p">,</span> <span class="n">AL</span><span class="p">,</span> <span class="n">ACD</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span><span class="n">Rx</span><span class="p">):</span>
+<span class="c1">#     https://sci-hub.tw/10.1016/j.jcrs.2006.08.037</span>
+    <span class="n">n_air</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">n_vc</span><span class="o">=</span><span class="mf">1.3265</span>
+    <span class="n">n_CCT</span><span class="o">=</span><span class="n">n_vc</span><span class="o">+</span><span class="p">(</span><span class="n">CCT</span><span class="o">*</span><span class="mf">0.000022</span><span class="p">)</span>
+    <span class="n">k_conv</span><span class="o">=</span><span class="mf">337.5</span><span class="o">/</span><span class="n">rF</span>
+    <span class="k">if</span>  <span class="n">k_conv</span><span class="o">&lt;</span><span class="mf">37.5</span><span class="p">:</span>
+        <span class="n">n_adj</span><span class="o">=</span><span class="n">n_CCT</span><span class="o">+</span><span class="mf">0.017</span>
+    <span class="k">elif</span> <span class="n">k_conv</span><span class="o">&lt;</span><span class="mf">41.44</span><span class="p">:</span>
+        <span class="n">n_adj</span><span class="o">=</span><span class="n">n_CCT</span>
+    <span class="k">elif</span> <span class="n">k_conv</span><span class="o">&lt;</span><span class="mi">45</span><span class="p">:</span>
+        <span class="n">n_adj</span><span class="o">=</span><span class="n">n_CCT</span><span class="o">-</span><span class="mf">0.015</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n_adj</span><span class="o">=</span><span class="n">n_CCT</span>
+    <span class="n">n_acq</span><span class="o">=</span> <span class="mf">1.336</span>
+    <span class="n">d_cct</span><span class="o">=</span><span class="n">CCT</span><span class="o">/</span><span class="mi">1000000</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">d_cct</span><span class="o">/</span><span class="n">n_vc</span>
+    <span class="n">Fant</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">rF</span><span class="o">*</span><span class="p">(</span><span class="n">n_vc</span><span class="o">-</span><span class="n">n_air</span><span class="p">)</span>
+    <span class="n">Fpost</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">rB</span><span class="o">*</span><span class="p">(</span><span class="n">n_acq</span><span class="o">-</span><span class="n">n_vc</span><span class="p">)</span>
+    
+<span class="c1">#   corneal power in virgin corneas[D]</span>
+    <span class="n">BESSt_vc_K</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">rF</span><span class="o">*</span><span class="p">(</span><span class="n">n_vc</span><span class="o">-</span><span class="n">n_air</span><span class="p">))</span>
+                <span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rB</span><span class="o">*</span><span class="p">(</span><span class="n">n_acq</span><span class="o">-</span><span class="n">n_vc</span><span class="p">))</span>
+                <span class="o">-</span><span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">rF</span><span class="o">*</span><span class="p">(</span><span class="n">n_vc</span><span class="o">-</span><span class="n">n_air</span><span class="p">)</span>
+                <span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">rB</span><span class="o">*</span><span class="p">(</span><span class="n">n_acq</span><span class="o">-</span><span class="n">n_vc</span><span class="p">)))</span><span class="o">*</span><span class="mi">1000</span>
+<span class="c1">#   corneal power after keratorefractive surgery[D]</span>
+    <span class="n">BESSt_K</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">rF</span><span class="o">*</span><span class="p">(</span><span class="n">n_adj</span><span class="o">-</span><span class="n">n_air</span><span class="p">))</span>
+             <span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rB</span><span class="o">*</span><span class="p">(</span><span class="n">n_acq</span><span class="o">-</span><span class="n">n_adj</span><span class="p">))</span>
+             <span class="o">-</span><span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">rF</span><span class="o">*</span><span class="p">(</span><span class="n">n_adj</span><span class="o">-</span><span class="n">n_air</span><span class="p">)</span>
+               <span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="n">rB</span><span class="o">*</span><span class="p">(</span><span class="n">n_acq</span><span class="o">-</span><span class="n">n_adj</span><span class="p">)))</span><span class="o">*</span><span class="mi">1000</span>
+    
+
+    <span class="n">K</span><span class="o">=</span><span class="n">BESSt_K</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">AL</span><span class="o">&lt;=</span><span class="mf">22.0</span> <span class="ow">or</span> <span class="n">SRK_T_Rc</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Rx</span><span class="p">)</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">IOL</span><span class="o">=</span><span class="n">HOFFER_Q</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">ACD</span><span class="p">,</span> <span class="n">Rx</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">IOL</span><span class="o">=</span><span class="n">SRK_T</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">Rx</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">IOL</span>   
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
     </div>
   </div>
 </body>

@@ -179,10 +179,10 @@ def shammas(Kpost,L, A, R):
     return IOLAm
 
 
-# In[9]:
+# In[12]:
 
 
-def Haigis(R,AC,L,A,Rx, a0=None,a1=0.400,a2=0.100):
+def Haigis(R,AC,L,Dl=None, Rx=None, A=None, a0=None,a1=0.400,a2=0.100):
 #     IOL power for given refraction Dl:  All calculations are based on the "Thin-lens-formula":
 #     Dl  IOL power 
 #     Dc  corneal power 
@@ -196,14 +196,18 @@ def Haigis(R,AC,L,A,Rx, a0=None,a1=0.400,a2=0.100):
 
 #     AC : preoperative acoustical anterior chamber depth, as measured by ultrasound    
 #     L: preoperative axial length, as measured by ultrasound
-    if a0==None:
+    if ((a0 is None) and (A is not None)):
         a0=0.62467 * A - 72.434
     u = -0.241  
     v = 0.139
-    if AC==0:
-        d = (a0 + u*a1) + (a2 + v*a1)*L  
-    else:
-        d = a0 +a1*AC + a2*L
+    
+#     if AC==0:
+#         d = (a0 + u*a1) + (a2 + v*a1)*L  
+#     else:
+#         d = a0 +a1*AC + a2*L
+
+    d = a0 +a1*AC + a2*L
+    
     n=1.336; Nc=1.3315; 
     # convert mm to meter
     Dx=12/1000;
@@ -213,18 +217,28 @@ def Haigis(R,AC,L,A,Rx, a0=None,a1=0.400,a2=0.100):
     d=d/1000
     
     Dc=(Nc-1)/(R)
-    z=Dc+Rx/(1-Rx*Dx)
-    Dl=n/(L-d) - n/ (n/z -d)
     
-    return Dl
+    if (Dl is  None) and (Rx is not None):    
+        z=Dc+Rx/(1-Rx*Dx)
+        Dl=n/(L-d) - n/ (n/z -d)
+        return Dl
+    
+    # overload Haigis to calc Rx
+    # as known IOL power
+    if (Dl is not None) and (Rx is None):
+        q=n*(n- Dl* (L-d))/ (n*(L-d)+ d*(n-Dl*(L-d)))
+        Rx=(q-Dc)/(1+Dx*(q+Dc))
+        return Rx
+    
 
 
-# In[10]:
+# In[13]:
 
 
 def Haigis_L(R,AC,L,A,Rx, a0=None,a1=0.400,a2=0.100):
     R_corr=331.5/(-5.1625*R+82.2603-0.35)
-    return Haigis(R_corr,AC,L,A,Rx,a0,a1,a2)
+#     return Haigis(R_corr,AC,L,A,Rx,a0,a1,a2)
+    return Haigis(R=R_corr,AC=AC,L=L,Dl=None, Rx=Rx, A=A, a0=a0,a1=a1,a2=a2)
 
 
 # In[11]:

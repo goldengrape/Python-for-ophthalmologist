@@ -77,11 +77,12 @@ s1.head()
 
 
 df=pd.DataFrame()
-df['AL']=s1['AL']/1000
-df['D1']=s1['D1 [mm]']/1000
-df['D2']=s1['D2 [mm]']/1000
-df['ACD']=s1['ACD']/1000
+df['AL']=s1['AL'] /1000
+df['D1']=s1['D1 [mm]'] /1000
+df['D2']=s1['D2 [mm]'] /1000
+df['ACD']=s1['ACD'] /1000
 df['IOL power']=s1['IOL power']
+df["target refraction"]=s1['target refraction']
 df['postOP refraction']=s1['refraction - 6 months postOP']
 df=df.dropna()
 
@@ -150,133 +151,159 @@ for col,ax in zip(df.columns,axes):
 # 
 # 其实上面就是个线性回归的问题，也就是求解 Y = K X + b
 # 
+# todo：
+# 用PyMC的效果似乎不好，换个优化器，可能lmfit就比较合适，而且通用。
 
 # In[7]:
 
 
-def Km(D1,D2,nc):
-    K1=(nc-1)/D1
-    K2=(nc-1)/D2
-    return (K1+K2)/2
-
-def z(Km,F):
-    return Km+F/(1-F*0.012)
-    
-def real_d(L,n,z,D):
-    d_part_1=1/2*(L+n/z)
-    d_part_2=1/4*(L+n/z)**2
-    d_part_3=L*n/z-n**2/(D*z)+n*L/D
-    d = d_part_1-np.sqrt(d_part_2-d_part_3)
-    return d
+from lmfit import Minimizer, Parameters, report_fit
 
 
 # In[8]:
 
 
-nc=1.332
-K_=Km(df['D1'],df['D2'], nc)
-F=df['postOP refraction']
-z_=z(K_,F)
-L=df['AL']
-ACD = df['ACD']
-n=1.336
-D=df['IOL power']
-df['real_d']=real_d(L,n,z_,D)
+def d_est(n, nc, L,D1,D2,ACD,F,D):
+    mean_D=(D1+D2)/2
+    Km=(nc-1)/mean_D
+    z=Km+F/(1-F*0.012)
+    d=1/2*(L+n/z)-np.sqrt(
+        1/4*(L+n/z)**2 -
+        (L*n/z - n**2/(D*z) + n*L/D)
+    )
+    return d
+df['d']=df.apply(lambda row: 
+                 d_est(n=1.336, nc=1.332, L=row.AL, D1=row.D1, D2=row.D2, ACD=row.ACD, F=row["postOP refraction"],D=row['IOL power']),
+                 axis=1)
 
 
 # In[9]:
 
 
-sns.jointplot(df['ACD'], df['real_d'], kind="kde", height=7, space=0)
+def fcn2min(params, ACD,L, d):
+    """Model a decaying sine wave and subtract data."""
+    a0 = params['a0']
+    a1 = params['a1']
+    a2 = params['a2']
+    loss = (a0+ACD*a1+L*a2 -d )**2
+    return loss
+
+
+# create a set of Parameters
+params = Parameters()
+params.add('a0', value=1.1)
+params.add('a1', value=0.4)
+params.add('a2', value=0.1)
 
 
 # In[10]:
 
 
-sns.jointplot(df['AL'], df['real_d'], kind="kde", height=7, space=0)
+# do fit, here with leastsq model
+minner = Minimizer(fcn2min, params, fcn_args=(df.ACD,df.AL,df.d))
+result = minner.minimize()
+
+# calculate final result
+final = df.d + result.residual
+
+# write error report
+report_fit(result)
 
 
 # In[11]:
 
 
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-from pymc3 import  *
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-# In[13]:
-
-
-df.head()
+from IOL_formulas import Haigis
+# (R,AC,L,Dl=None, Rx=None, A=None, a0=None,a1=0.400,a2=0.100)
 
 
 # In[12]:
 
 
-x=np.asarray([ACD.values, L.values]).T
-y=df['real_d'].values
-data = {'x': x, 'y': y}
-
-
-# In[37]:
-
-
-df.ACD.std()
-
-
-# In[39]:
-
-
-with Model() as model:
-    priors = {
-          'real_d': Normal.dist(mu=df.real_d.mean(), sd=df.real_d.std()),
-          'ACD': Normal.dist(mu=df.ACD.mean(), sd=9.4e-5),
-          'AL': Normal.dist(mu=df.AL.mean(), sd= 10e-5)
-    }
-    GLM.from_formula('real_d ~ ACD+AL', df, priors=priors)
-    trace = sample(2000, cores=2)
+def fcn2min(params,R, AC, L,Dl, PostOP_Rx):
+    """Model a decaying sine wave and subtract data."""
+    a0 = params['a0']
+    a1 = params['a1']
+    a2 = params['a2']
+    
+    Rx=Haigis(R=R,AC=AC,L=L,Dl=Dl,a0=a0,a1=a1,a2=a2)
+    
+    
+    loss = (Rx-PostOP_Rx )**2
+    return loss
+# create a set of Parameters
+params = Parameters()
+params.add('a0', value=1.1)
+params.add('a1', value=0.4)
+params.add('a2', value=0.1)
 
 
 # In[15]:
 
 
-# with Model() as model:
-#     lm = glm.LinearComponent.from_formula('real_d ~ ACD+AL', df)
-#     sigma = Uniform('sigma', 0, 10)
-#     y_obs = Normal('y_obs', mu=lm.y_est, sd=sigma, observed=df.real_d)
-#     trace = sample(2000, cores=2)
+# do fit, here with leastsq model
+minner = Minimizer(fcn2min, params, 
+                   fcn_args=(
+                       (df.D1+df.D2)/2 * 1000,
+                       df.ACD * 1000,
+                       df.AL * 1000,
+                       df["IOL power"],
+                       df["postOP refraction"])
+                  )
+result = minner.minimize()
+
+# write error report
+report_fit(result)
 
 
-# In[40]:
+# In[16]:
 
 
-traceplot(trace)
+df.columns
 
 
-# In[41]:
+# In[27]:
 
 
-print("a0={}, 95% CI ({},{})".format(
-    np.mean(trace['Intercept']),
-    np.mean(trace['Intercept'])-2*np.std(trace['Intercept']),
-    np.mean(trace['Intercept'])+2*np.std(trace['Intercept'])))
+df["opIOL"]=df.apply(lambda row: 
+                     Haigis(
+                       R=(row.D1+row.D2)/2 * 1000,
+                       AC=row.ACD * 1000,
+                       L=row.AL * 1000,
+                       Rx=row['target refraction'],
+                       a0=10.1253329, a1=-0.02132991,a2=-0.23932645),
+                     axis=1)
+df['opRef']=df.apply(lambda row:
+                    Haigis(
+                       R=(row.D1+row.D2)/2 * 1000,
+                       AC=row.ACD * 1000,
+                       L=row.AL * 1000,
+                       Dl=row["opIOL"], 
+                       a0=10.1253329, a1=-0.02132991,a2=-0.23932645),
+                     axis=1)
+df['calRef']=df.apply(lambda row:
+                    Haigis(
+                       R=(row.D1+row.D2)/2 * 1000,
+                       AC=row.ACD * 1000,
+                       L=row.AL * 1000,
+                       Dl=row["IOL power"], 
+                       a0=10.1253329, a1=-0.02132991,a2=-0.23932645),
+                     axis=1)
+                         
+                         
+#                          R,AC,L,Dl=None, Rx=None, A=None, a0=None,a1=0.400,a2=0.100
 
-print("a1={}, 95% CI ({},{})".format(
-    np.mean(trace['ACD']),
-    np.mean(trace['ACD'])-2*np.std(trace['ACD']),
-    np.mean(trace['ACD'])+2*np.std(trace['ACD'])))
 
-print("a2={}, 95% CI ({},{})".format(
-    np.mean(trace['AL']),
-    np.mean(trace['AL'])-2*np.std(trace['AL']),
-    np.mean(trace['AL'])+2*np.std(trace['AL'])))
+# In[28]:
 
 
-# print('a1=',np.mean(trace['ACD']), 'std=',np.std(trace['ACD']))
-# print('a2=',np.mean(trace['AL']), 'std=',np.std(trace['AL']))
+df
+
+
+# In[20]:
+
+
+pd.Series(result.residual).hist()
 
 
 # In[ ]:
